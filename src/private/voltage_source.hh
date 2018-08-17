@@ -6,15 +6,29 @@
 #define CIRCUITSIM_VOLTAGE_SOURCE_HH
 
 #include "basic_component.hh"
+#include "../dc_context.hpp"
 
 namespace circuitsim {
 
-    struct voltage_source : public basic_component<voltage_source, 2> {
-        using base = basic_component<voltage_source, 2>;
-        using base::base;
+    class voltage_source;
 
+    template<>
+    struct component_traits<voltage_source> {
         static constexpr std::string_view symbol() {
             return "V";
+        }
+    };
+
+    struct voltage_source : public basic_component<voltage_source, 2> {
+        using base = basic_component<voltage_source, 2>;
+
+        explicit voltage_source(std::string name) noexcept
+        : base{std::move(name)} {
+            value(5);
+        }
+
+        void stamp(dc_context &ctx) const {
+            ctx.stamp_voltage((unsigned) port(0), (unsigned) port(1), value());
         }
     };
 

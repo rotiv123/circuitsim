@@ -2,9 +2,9 @@
 // Created by vitor on 15-08-2018.
 //
 
-#include <private/component.hh>
 #include "component_factory.hpp"
 #include "private/component_factory.hh"
+#include "private/component.hh"
 
 namespace circuitsim {
 

@@ -13,9 +13,9 @@ namespace circuitsim {
 
     class circuit;
 
-    CIRCUITSIM_API void add_resistor(circuit&, std::string name);
+    CIRCUITSIM_API std::string add_resistor(circuit&, std::string name);
 
-    CIRCUITSIM_API void add_voltage_source(circuit&, std::string name);
+    CIRCUITSIM_API std::string add_voltage_source(circuit&, std::string name);
 
 }
 

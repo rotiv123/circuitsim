@@ -15,12 +15,20 @@ add_library(circuitsim SHARED
         private/basic_circuit.hh
         private/basic_component.hh
         private/resistor.hh
-        private/ground.hh
         component_factory.cpp
         component_factory.hpp
         component.cpp
         component.hpp
-        private/component.hh primitives.cpp primitives.hpp)
+        private/component.hh
+        primitives.cpp
+        primitives.hpp
+        dc_solver.cpp
+        dc_solver.hpp
+        private/matrix.hh
+        private/algebra.hh
+        dc_context.cpp
+        dc_context.hpp
+        private/dc_context.hh matrix.cpp matrix.hpp)
 
 
 target_include_directories(circuitsim PUBLIC

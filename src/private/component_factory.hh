@@ -19,13 +19,10 @@ namespace circuitsim {
     struct component_factory::impl {
 
         impl() noexcept : blue_prints_{} {
-            blue_prints_[ground::symbol()] = [](std::string &&name) {
-                return make_primitive<ground>(std::move(name));
-            };
-            blue_prints_[resistor::symbol()] = [](std::string &&name) {
+            blue_prints_[component_traits<resistor>::symbol()] = [](std::string &&name) {
                 return make_primitive<resistor>(std::move(name));
             };
-            blue_prints_[voltage_source::symbol()] = [](std::string &&name) {
+            blue_prints_[component_traits<voltage_source>::symbol()] = [](std::string &&name) {
                 return make_primitive<voltage_source>(std::move(name));
             };
         }

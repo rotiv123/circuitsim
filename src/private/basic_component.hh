@@ -7,18 +7,36 @@
 
 #include <cassert>
 #include <array>
+#include <algorithm>
 #include <string>
 
 namespace circuitsim {
 
+    template<class Component>
+    struct component_traits {
+        static constexpr std::string_view symbol() {
+            return Component::symbol();
+        }
+    };
+
     template<class Derived, std::size_t NPorts>
     struct basic_component {
         explicit basic_component(std::string name) noexcept
-                : name_{std::move(name)}, ports_{} {
+                : name_{std::move(name)}, ports_{}, value_{} {
+            std::fill(std::begin(ports_), std::end(ports_), -1);
         }
 
         std::string_view name() const {
             return name_;
+        }
+
+        double value() const {
+            return value_;
+        }
+
+        void value(double val) {
+            assert(val != 0);
+            value_ = val;
         }
 
         int port(unsigned ix) const {
@@ -26,26 +44,17 @@ namespace circuitsim {
         }
 
         void port(unsigned ix, int val) {
-            impl().check_set_port(ix, val);
             ports_[ix] = val;
         }
 
-    protected:
-        void check_set_port(unsigned ix, int val) const {
-            assert(ix < NPorts);
+        std::string_view symbol() const {
+            return component_traits<Derived>::symbol();
         }
 
     private:
         std::string name_;
         std::array<int, NPorts> ports_;
-
-        const Derived &impl() const {
-            return *static_cast<const Derived *>(this);
-        }
-
-        Derived &impl() {
-            return *static_cast<Derived *>(this);
-        }
+        double value_;
     };
 
 }

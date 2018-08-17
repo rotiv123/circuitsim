@@ -11,26 +11,38 @@
 
 namespace circuitsim {
 
+    class dc_context;
+    template <class T> class mutator;
+
     class CIRCUITSIM_API component {
     public:
         component(component &&) noexcept;
 
         ~component();
 
+        std::string_view symbol() const;
+
         std::string_view name() const;
 
-        int port(unsigned ix);
+        double value() const;
 
-        void port(unsigned ix, int val);
+        int port(unsigned ix) const;
+
+        void stamp(dc_context&) const;
 
     private:
         friend class component_factory;
+        friend class mutator<component>;
 
         class impl;
 
         explicit component(std::unique_ptr<impl>) noexcept;
 
         std::unique_ptr<impl> impl_;
+
+        void port(unsigned ix, int val);
+
+        void value(double val);
     };
 
 }

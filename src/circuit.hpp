@@ -9,8 +9,11 @@
 #include <circuitsim/config/export.h>
 #include <memory>
 #include <string>
+#include <functional>
 
 namespace circuitsim {
+
+    class component;
 
     class component_factory;
 
@@ -25,7 +28,15 @@ namespace circuitsim {
 
         ~circuit();
 
-        void add(std::string_view symbol, std::string name);
+        std::string add(std::string_view symbol, std::string name);
+
+        std::size_t nodes() const;
+
+        std::size_t voltage_sources() const;
+
+        friend CIRCUITSIM_API void visit(const circuit &, const std::function<void(const component &)> &);
+
+        friend CIRCUITSIM_API void set_value(circuit &, std::string_view, double);
 
         friend CIRCUITSIM_API void connect(circuit &, std::string_view, unsigned, std::string_view, unsigned);
 

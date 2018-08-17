@@ -6,17 +6,21 @@
 #define CIRCUITSIM_COMPONENT_VAR_T_HH
 
 #include <variant>
-#include "ground.hh"
 #include "resistor.hh"
 #include "voltage_source.hh"
+#include "../dc_context.hpp"
 
 namespace circuitsim {
 
-    using primitive = std::variant<ground, resistor, voltage_source>;
+    using primitive = std::variant<resistor, voltage_source>;
 
     template<class T, typename ...Args>
     primitive make_primitive(Args ...args) {
         return primitive{T{std::forward<Args>(args)...}};
+    }
+
+    inline std::string_view get_symbol(const primitive &c) {
+        return std::visit([](const auto &x) { return x.symbol(); }, c);
     }
 
     inline std::string_view get_name(const primitive &c) {
@@ -29,6 +33,18 @@ namespace circuitsim {
 
     inline void set_port(primitive &c, unsigned ix, int val) {
         std::visit([=](auto &x) { return x.port(ix, val); }, c);
+    }
+
+    inline double get_value(const primitive &c) {
+        return std::visit([](const auto &x) { return x.value(); }, c);
+    }
+
+    inline void set_value(primitive &c, double val) {
+        std::visit([=](auto &x) { return x.value(val); }, c);
+    }
+
+    inline void stamp(const primitive &c, dc_context &ctx) {
+        std::visit([&](const auto &x) { return x.stamp(ctx); }, c);
     }
 }
 

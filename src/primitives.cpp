@@ -8,12 +8,12 @@
 
 namespace circuitsim {
 
-    void add_resistor(circuit &c, std::string name) {
-        c.add(resistor::symbol(), std::move(name));
+    std::string add_resistor(circuit &c, std::string name) {
+        return c.add(component_traits<resistor>::symbol(), std::move(name));
     }
 
-    void add_voltage_source(circuit &c, std::string name) {
-        c.add(voltage_source::symbol(), std::move(name));
+    std::string add_voltage_source(circuit &c, std::string name) {
+        return c.add(component_traits<voltage_source>::symbol(), std::move(name));
     }
 
 }

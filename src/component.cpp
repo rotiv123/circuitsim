@@ -15,15 +15,31 @@ namespace circuitsim {
 
     component::~component() = default;
 
+    std::string_view component::symbol() const {
+        return impl_->symbol();
+    }
+
     std::string_view component::name() const {
         return impl_->name();
     }
 
-    int component::port(unsigned ix) {
+    double component::value() const {
+        return impl_->value();
+    }
+
+    int component::port(unsigned ix) const {
         return impl_->port(ix);
     }
 
     void component::port(unsigned ix, int val) {
         impl_->port(ix, val);
+    }
+
+    void component::stamp(dc_context &ctx) const {
+        impl_->stamp(ctx);
+    }
+
+    void component::value(double val) {
+        impl_->value(val);
     }
 }
