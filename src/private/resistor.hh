@@ -7,7 +7,7 @@
 
 #include <string_view>
 #include "basic_component.hh"
-#include "../dc_context.hpp"
+#include "../dc_context_view.hpp"
 
 namespace circuitsim {
 
@@ -28,7 +28,7 @@ namespace circuitsim {
             value(100);
         }
 
-        void stamp(dc_context &ctx) const {
+        void stamp(dc_context_view &ctx) const {
             ctx.stamp_resistance(port(0), port(1), value());
         }
     };

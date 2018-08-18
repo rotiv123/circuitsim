@@ -75,14 +75,6 @@ namespace circuitsim {
             return (std::size_t) max_node_;
         }
 
-        std::size_t voltage_sources() const {
-            return (std::size_t) std::count_if(std::begin(components_),
-                                               std::end(components_),
-                                               [&](const auto &x) {
-                                                   return x.symbol() == "V";
-                                               });
-        }
-
     private:
         std::unordered_map<std::string_view, int> names_;
         components_type components_;

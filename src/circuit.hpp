@@ -10,10 +10,9 @@
 #include <memory>
 #include <string>
 #include <functional>
+#include "component_view.hpp"
 
 namespace circuitsim {
-
-    class component_view;
 
     class component_factory;
 
@@ -29,8 +28,6 @@ namespace circuitsim {
         std::string add(std::string_view symbol);
 
         std::size_t nodes() const;
-
-        std::size_t voltage_sources() const;
 
         void visit(const std::function<void(const component_view &)> &) const;
 

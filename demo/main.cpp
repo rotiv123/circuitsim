@@ -23,15 +23,25 @@ int main() {
     auto r3 = add_resistor(c);
     auto r4 = add_resistor(c);
 
-    set_value(c, v1, 10);
+    set_value(c, v1, 9);
+    set_value(c, r2, 200);
+    set_value(c, r3, 200);
 
     ground(c, v1, 1);
     connect(c, v1, 0, r1, 0);
     connect(c, r1, 1, r2, 0);
     connect(c, r3, 0, r2, 0);
     ground(c, r2, 1);
+    //ground(c, r3, 1);
+
+    c.visit([](const component_view &x) {
+        auto n1 = x.port(0);
+        auto n2 = x.port(1);
+        std::cout << x.name() << " " << n1 << " " << n2 << " " << x.value() << std::endl;
+    });
 
     dc_solver dc;
+    std::cout << std::endl << "dc solving..." << std::endl;
     if (!dc.solve(c)) {
         std::cout << "ups... :(" << std::endl;
     }

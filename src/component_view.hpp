@@ -11,7 +11,7 @@
 
 namespace circuitsim {
 
-    class dc_context;
+    class dc_context_view;
 
     class CIRCUITSIM_API component_view {
     public:
@@ -27,7 +27,7 @@ namespace circuitsim {
 
         int port(unsigned ix) const;
 
-        void stamp(dc_context&) const;
+        void stamp(dc_context_view&) const;
 
     private:
         friend class component_factory;

@@ -5,7 +5,7 @@
 #ifndef CIRCUITSIM_COMPONENT_HH
 #define CIRCUITSIM_COMPONENT_HH
 
-#include "component_view.hpp"
+#include "../component_view.hpp"
 #include "primitives.hh"
 
 namespace circuitsim {
@@ -31,7 +31,7 @@ namespace circuitsim {
             set_port(storage_, ix, val);
         }
 
-        void stamp(dc_context &ctx) const {
+        void stamp(dc_context_view &ctx) const {
             circuitsim::stamp(storage_, ctx);
         }
 

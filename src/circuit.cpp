@@ -32,10 +32,6 @@ namespace circuitsim {
         return impl_->nodes();
     }
 
-    std::size_t circuit::voltage_sources() const {
-        return impl_->voltage_sources();
-    }
-
     void set_value(circuit &c, std::string_view src, double val) {
         c.impl_->value(src, val);
     }

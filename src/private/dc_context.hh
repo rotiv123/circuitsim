@@ -6,18 +6,19 @@
 #define CIRCUITSIM_DC_CONTEXT_HH
 
 #include <utility>
-#include "../dc_context.hpp"
+#include "../dc_context_view.hpp"
 #include "algebra.hh"
 #include "matrix.hh"
 
 namespace circuitsim {
 
-    struct dc_context::impl {
+    struct dc_context_view::impl {
 
         static constexpr double OPEN_AIR_RESISTANCE = 1000000000;
 
-        impl(unsigned n, unsigned m) : G{n, n}, B{n, m}, C{m, n}, D{m, m}, i{n, 1}, e{m, 1}, n_{n}, m_{m},
-                                       m_ix_{0} {
+        impl(unsigned n, unsigned m, std::vector<int> &map) : G{n, n}, B{n, m}, C{m, n}, D{m, m}, i{n, 1}, e{m, 1},
+                                                              node_map_{map}, n_{n}, m_{m},
+                                                              m_ix_{0} {
 
         }
 
@@ -81,6 +82,7 @@ namespace circuitsim {
         friend class dc_solver;
 
         matrix G, B, C, D, i, e;
+        std::reference_wrapper<std::vector<int>> node_map_;
         unsigned n_, m_, m_ix_;
 
         std::tuple<bool, std::size_t, std::size_t> protect(bool vs, int &n1, int &n2) {
@@ -98,11 +100,12 @@ namespace circuitsim {
                 stamp_resistance(n2, 0, OPEN_AIR_RESISTANCE);
             }
 
+            n1 = node_map_.get()[n1];
+            n2 = node_map_.get()[n2];
             return {n1 != n2, ix(n1 - 1), ix(n2 - 1)};
         }
 
         void resize(unsigned n, unsigned m) {
-
             if (n != n_ && m != m_) {
                 G = G.resize(n, n);
                 B = B.resize(n, m);
@@ -112,12 +115,14 @@ namespace circuitsim {
                 i = i.resize(n, 1);
                 n_ = n;
                 m_ = m;
+                node_map_.get().push_back(n);
             } else if (n != n_) {
                 G = G.resize(n, n);
                 B = B.resize(n, m_);
                 C = C.resize(m_, n);
                 i = i.resize(n, 1);
                 n_ = n;
+                node_map_.get().push_back(n);
             } else if (m != m_) {
                 B = B.resize(n_, m);
                 C = C.resize(m, n_);

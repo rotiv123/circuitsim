@@ -10,13 +10,12 @@
 
 namespace circuitsim {
 
-    class CIRCUITSIM_API dc_context {
+    class CIRCUITSIM_API dc_context_view {
     public:
-        dc_context(std::size_t n, std::size_t m) noexcept;
 
-        dc_context(dc_context &&) noexcept;
+        dc_context_view(dc_context_view &&) noexcept;
 
-        ~dc_context();
+        ~dc_context_view();
 
         void stamp_resistance(int n1, int n2, double r);
 
@@ -26,7 +25,9 @@ namespace circuitsim {
         class impl;
         friend class dc_solver;
 
-        std::unique_ptr<impl> impl_;
+        explicit dc_context_view(impl*) noexcept;
+
+        impl *impl_;
     };
 
 }

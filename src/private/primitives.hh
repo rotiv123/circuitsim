@@ -42,7 +42,7 @@ namespace circuitsim {
         std::visit([=](auto &x) { return x.value(val); }, c);
     }
 
-    inline void stamp(const primitive &c, dc_context &ctx) {
+    inline void stamp(const primitive &c, dc_context_view &ctx) {
         std::visit([&](const auto &x) { return x.stamp(ctx); }, c);
     }
 }

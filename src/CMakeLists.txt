@@ -26,8 +26,8 @@ add_library(circuitsim SHARED
         dc_solver.hpp
         private/matrix.hh
         private/algebra.hh
-        dc_context.cpp
-        dc_context.hpp
+        dc_context_view.cpp
+        dc_context_view.hpp
         private/dc_context.hh)
 
 
