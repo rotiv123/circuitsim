@@ -27,15 +27,17 @@ namespace circuitsim {
 
         std::string add(std::string_view symbol);
 
+        void remove(std::string_view name);
+
         std::size_t nodes() const;
 
         void visit(const std::function<void(const component_view &)> &) const;
 
-        friend CIRCUITSIM_API void set_value(circuit &, std::string_view, double);
+        void set_value(std::string_view, double);
 
-        friend CIRCUITSIM_API void connect(circuit &, std::string_view, unsigned, std::string_view, unsigned);
+        void connect(std::string_view, unsigned, std::string_view, unsigned);
 
-        friend CIRCUITSIM_API void ground(circuit &c, std::string_view src, unsigned srcp);
+        void ground(std::string_view src, unsigned srcp);
 
     private:
         class impl;

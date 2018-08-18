@@ -23,16 +23,21 @@ int main() {
     auto r3 = add_resistor(c);
     auto r4 = add_resistor(c);
 
-    set_value(c, v1, 9);
-    set_value(c, r2, 200);
-    set_value(c, r3, 200);
+    c.set_value(v1, 9);
+    c.set_value(v2, 9);
+    c.set_value(r2, 200);
+    c.set_value(r3, 200);
 
-    ground(c, v1, 1);
-    connect(c, v1, 0, r1, 0);
-    connect(c, r1, 1, r2, 0);
-    connect(c, r3, 0, r2, 0);
-    ground(c, r2, 1);
-    //ground(c, r3, 1);
+    c.ground(v1, 1);
+    c.connect(v1, 0, r1, 0);
+    c.connect(r1, 1, r2, 0);
+    c.connect(r3, 0, r2, 0);
+    c.ground(r2, 1);
+    //c.ground(r3, 1);
+
+    c.remove(v1);
+    c.connect(r1, 0, v2, 0);
+    c.ground(v2, 1);
 
     c.visit([](const component_view &x) {
         auto n1 = x.port(0);

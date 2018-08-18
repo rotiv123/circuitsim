@@ -64,11 +64,12 @@ namespace circuitsim {
             });
 
             auto mt = ctx.mat();
+            print(mt);
             auto ok = circuitsim::solve(mt);
 
             for (auto i = 0u; i < nodes; ++i) {
-                auto it = std::find(std::begin(nodes_map), std::end(nodes_map), i);
-                std::cout << "v_" << (std::distance(std::begin(nodes_map), it) + 1)
+                auto it = std::find(std::begin(nodes_map), std::end(nodes_map), i + 1);
+                std::cout << "v_" << (std::distance(std::begin(nodes_map), it))
                           << " = " << mt.at(i, mt.cols() - 1) << std::endl;
             }
 

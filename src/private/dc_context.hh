@@ -91,12 +91,14 @@ namespace circuitsim {
                     resize(n_, m_ - 1);
                 }
             } else if (n1 < 0) {
-                n1 = n_ + 1;
                 resize(n_ + 1, m_);
+                n1 = (int) std::distance(std::begin(node_map_.get()),
+                                         std::end(node_map_.get())) - 1;
                 stamp_resistance(n1, 0, OPEN_AIR_RESISTANCE);
             } else if (n2 < 0) {
-                n2 = n_ + 1;
                 resize(n_ + 1, m_);
+                n2 = (int) std::distance(std::begin(node_map_.get()),
+                                         std::end(node_map_.get())) - 1;
                 stamp_resistance(n2, 0, OPEN_AIR_RESISTANCE);
             }
 

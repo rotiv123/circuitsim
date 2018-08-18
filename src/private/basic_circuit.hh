@@ -41,6 +41,12 @@ namespace circuitsim {
             return std::string{components_.back().name()};
         }
 
+        void remove(std::string_view src) {
+            components_.erase(std::remove_if(std::begin(components_),
+                                             std::end(components_),
+                                             [&](const auto &x) { return x.name() == src; }), std::end(components_));
+        }
+
         void connect(std::string_view src, unsigned srcp, std::string_view dst, unsigned dstp) {
             auto &source = get(src);
             auto &destination = get(dst);

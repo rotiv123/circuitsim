@@ -28,20 +28,24 @@ namespace circuitsim {
         return impl_->add(symbol);
     }
 
+    void circuit::remove(std::string_view name) {
+        impl_->remove(name);
+    }
+
     std::size_t circuit::nodes() const {
         return impl_->nodes();
     }
 
-    void set_value(circuit &c, std::string_view src, double val) {
-        c.impl_->value(src, val);
+    void circuit::set_value(std::string_view src, double val) {
+        impl_->value(src, val);
     }
 
-    void connect(circuit &c, std::string_view src, unsigned srcp, std::string_view dst, unsigned dstp) {
-        c.impl_->connect(src, srcp, dst, dstp);
+    void circuit::connect(std::string_view src, unsigned srcp, std::string_view dst, unsigned dstp) {
+        impl_->connect(src, srcp, dst, dstp);
     }
 
-    void ground(circuit &c, std::string_view src, unsigned srcp) {
-        c.impl_->ground(src, srcp);
+    void circuit::ground(std::string_view src, unsigned srcp) {
+        impl_->ground(src, srcp);
     }
 
     void circuit::visit(const std::function<void(const component_view &)> &f) const {
