@@ -2,8 +2,8 @@
 // Created by vitor on 15-08-2018.
 //
 
-#ifndef CIRCUITSIM_ALGEBRA_HPP
-#define CIRCUITSIM_ALGEBRA_HPP
+#ifndef CIRCUITSIM_ALGEBRA_HH
+#define CIRCUITSIM_ALGEBRA_HH
 
 #include <cstddef>
 #include <cassert>
@@ -120,4 +120,4 @@ namespace circuitsim {
 
 }
 
-#endif //CIRCUITSIM_ALGEBRA_HPP
+#endif //CIRCUITSIM_ALGEBRA_HH

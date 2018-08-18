@@ -33,7 +33,7 @@ namespace circuitsim {
 
         void visit(const std::function<void(const component_view &)> &) const;
 
-        void set_value(std::string_view, double);
+        void value(std::string_view, double);
 
         void connect(std::string_view, unsigned, std::string_view, unsigned);
 

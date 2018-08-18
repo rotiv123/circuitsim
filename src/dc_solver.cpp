@@ -14,7 +14,11 @@ namespace circuitsim {
 
     dc_solver::~dc_solver() = default;
 
-    bool dc_solver::solve(const circuit &c) const {
+    bool dc_solver::solve(const circuit &c) {
         return impl_->solve(c);
+    }
+
+    void dc_solver::visit(const std::function<void(const data_point &)> &f) const {
+        impl_->visit(f);
     }
 }

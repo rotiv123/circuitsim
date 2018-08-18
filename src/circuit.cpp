@@ -36,7 +36,7 @@ namespace circuitsim {
         return impl_->nodes();
     }
 
-    void circuit::set_value(std::string_view src, double val) {
+    void circuit::value(std::string_view src, double val) {
         impl_->value(src, val);
     }
 

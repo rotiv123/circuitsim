@@ -7,8 +7,6 @@
 
 #include <vector>
 #include <algorithm>
-#include <iostream>
-#include <iomanip>
 
 #include "../dc_solver.hpp"
 #include "../circuit.hpp"
@@ -22,7 +20,7 @@ namespace circuitsim {
 
     struct dc_solver::impl {
 
-        bool solve(const circuit &c) const {
+        bool solve(const circuit &c) {
             std::vector<int> nodes_map;
             auto max_node_id = c.nodes() + 1;
             unsigned nodes{0}, voltage_sources{0};
@@ -64,24 +62,33 @@ namespace circuitsim {
             });
 
             auto mt = ctx.mat();
-            print(mt);
+            //print(mt);
             auto ok = circuitsim::solve(mt);
-
+            std::vector<data_point> dps{};
             for (auto i = 0u; i < nodes; ++i) {
                 auto it = std::find(std::begin(nodes_map), std::end(nodes_map), i + 1);
-                std::cout << "v_" << (std::distance(std::begin(nodes_map), it))
-                          << " = " << mt.at(i, mt.cols() - 1) << std::endl;
+                dps.emplace_back(
+                        node_voltage{(unsigned) std::distance(std::begin(nodes_map), it),
+                                     mt.at(i, mt.cols() - 1)});
             }
 
             for (auto i = 0u; i < voltage_sources; ++i) {
-                std::cout << "i_" << i
-                          << " = " << mt.at(mt.rows() - (voltage_sources + i), mt.cols() - 1) << std::endl;
+                dps.emplace_back(
+                        voltage_source_current{i, mt.at(mt.rows() - (voltage_sources + i), mt.cols() - 1)});
             }
 
+            std::swap(dps, data_points_);
             return ok;
         }
 
+        void visit(const std::function<void(const data_point &)> &f) const {
+            for (const auto &x : data_points_) {
+                f(x);
+            }
+        }
+
     private:
+        std::vector<data_point> data_points_;
     };
 
 }
