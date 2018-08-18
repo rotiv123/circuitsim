@@ -8,7 +8,6 @@
 #include <variant>
 #include "resistor.hh"
 #include "voltage_source.hh"
-#include "../dc_context.hpp"
 
 namespace circuitsim {
 

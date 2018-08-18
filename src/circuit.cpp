@@ -24,8 +24,8 @@ namespace circuitsim {
 
     circuit::~circuit() = default;
 
-    std::string circuit::add(std::string_view symbol, std::string name) {
-        return impl_->add(symbol, std::move(name));
+    std::string circuit::add(std::string_view symbol) {
+        return impl_->add(symbol);
     }
 
     std::size_t circuit::nodes() const {

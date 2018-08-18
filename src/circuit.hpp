@@ -26,7 +26,7 @@ namespace circuitsim {
 
         ~circuit();
 
-        std::string add(std::string_view symbol, std::string name);
+        std::string add(std::string_view symbol);
 
         std::size_t nodes() const;
 

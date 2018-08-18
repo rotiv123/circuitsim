@@ -16,12 +16,12 @@ int main() {
 
     circuit c{};
 
-    auto v1 = add_voltage_source(c, "V1");
-    auto v2 = add_voltage_source(c, "V2");
-    auto r1 = add_resistor(c, "R1");
-    auto r2 = add_resistor(c, "R2");
-    auto r3 = add_resistor(c, "R3");
-    auto r4 = add_resistor(c, "R4");
+    auto v1 = add_voltage_source(c);
+    auto v2 = add_voltage_source(c);
+    auto r1 = add_resistor(c);
+    auto r2 = add_resistor(c);
+    auto r3 = add_resistor(c);
+    auto r4 = add_resistor(c);
 
     set_value(c, v1, 10);
 

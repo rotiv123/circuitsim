@@ -29,7 +29,7 @@ namespace circuitsim {
         }
 
         void stamp(dc_context &ctx) const {
-            ctx.stamp_resistance((unsigned) port(0), (unsigned) port(1), value());
+            ctx.stamp_resistance(port(0), port(1), value());
         }
     };
 

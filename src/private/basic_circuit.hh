@@ -10,6 +10,7 @@
 #include <vector>
 #include <algorithm>
 #include <string>
+#include <unordered_map>
 #include "component_factory.hh"
 
 namespace circuitsim {
@@ -32,7 +33,8 @@ namespace circuitsim {
             return components_;
         }
 
-        std::string add(std::string_view symbol, std::string name) {
+        std::string add(std::string_view symbol) {
+            auto name = std::string{symbol} + std::to_string(++names_[symbol]);
             auto c = factory_.create(symbol, std::move(name));
             check_add(c);
             components_.push_back(std::move(c));
@@ -82,6 +84,7 @@ namespace circuitsim {
         }
 
     private:
+        std::unordered_map<std::string_view, int> names_;
         components_type components_;
         component_factory_type factory_;
         int max_node_;
