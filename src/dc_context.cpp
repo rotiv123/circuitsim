@@ -16,11 +16,11 @@ namespace circuitsim {
 
     dc_context::~dc_context() = default;
 
-    void dc_context::stamp_resistance(unsigned n1, unsigned n2, double r) {
+    void dc_context::stamp_resistance(int n1, int n2, double r) {
         impl_->stamp_resistance(n1, n2, r);
     }
 
-    void dc_context::stamp_voltage(unsigned pn, unsigned nn, double v) {
+    void dc_context::stamp_voltage(int pn, int nn, double v) {
         impl_->stamp_voltage(pn, nn, v);
     }
 }

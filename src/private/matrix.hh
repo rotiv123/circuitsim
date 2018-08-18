@@ -8,14 +8,24 @@
 #include <vector>
 #include <algorithm>
 #include <cmath>
-#include "../matrix.hpp"
 
 namespace circuitsim {
 
-    struct matrix { //::impl {
+    struct matrix {
 
         matrix(std::size_t m, std::size_t n) noexcept : storage_{}, M{m}, N{n} {
             storage_.reserve(M * N);
+            clear();
+        }
+
+        matrix resize(std::size_t m, std::size_t n) {
+            matrix mt{m, n};
+            mt.stamp(*this, 0, 0);
+            return mt;
+        }
+
+        void clear() {
+            storage_.clear();
             for (int i = 0; i < M * N; ++i) {
                 storage_.push_back(0);
             }
@@ -61,9 +71,17 @@ namespace circuitsim {
             }
         }
 
+        void stamp(const matrix &o, std::size_t i, std::size_t j) {
+            for (std::size_t h = 0; h < std::min(o.rows(), rows()); ++h) {
+                for (std::size_t k = 0; k < std::min(o.cols(), cols()); ++k) {
+                    at(i + h, j + k) = o.at(h, k);
+                }
+            }
+        }
+
     private:
         std::vector<double> storage_;
-        const std::size_t M, N;
+        std::size_t M, N;
     };
 
 }

@@ -20,7 +20,7 @@ namespace circuitsim {
 
         ~dc_solver();
 
-        void solve(const circuit &) const;
+        bool solve(const circuit &) const;
 
     private:
         class impl;

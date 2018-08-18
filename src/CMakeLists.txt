@@ -28,7 +28,7 @@ add_library(circuitsim SHARED
         private/algebra.hh
         dc_context.cpp
         dc_context.hpp
-        private/dc_context.hh matrix.cpp matrix.hpp)
+        private/dc_context.hh)
 
 
 target_include_directories(circuitsim PUBLIC
