@@ -17,8 +17,8 @@ add_library(circuitsim SHARED
         private/resistor.hh
         component_factory.cpp
         component_factory.hpp
-        component.cpp
-        component.hpp
+        component_view.cpp
+        component_view.hpp
         private/component.hh
         primitives.cpp
         primitives.hpp

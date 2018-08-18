@@ -16,8 +16,4 @@ namespace circuitsim {
     component_factory::component_factory(component_factory &&) noexcept = default;
 
     component_factory::~component_factory() = default;
-
-    component component_factory::create(std::string_view symbol, std::string name) const {
-        return component{std::make_unique<component::impl>(impl_->create(symbol, std::move(name)))};
-    }
 }

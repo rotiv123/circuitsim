@@ -3,25 +3,21 @@
 //
 
 #include "circuit.hpp"
-#include "component.hpp"
+#include "component_view.hpp"
 #include "private/basic_circuit.hh"
 #include "private/component.hh"
 #include "component_factory.hpp"
 
 namespace circuitsim {
 
-    struct circuit::impl : public basic_circuit<component_factory, circuitsim::mutator<component>> {
-        using base = basic_circuit<component_factory, circuitsim::mutator<component>>;
+    struct circuit::impl : public basic_circuit<component_factory::impl> {
+        using base = basic_circuit<component_factory::impl>;
         using base::base;
     };
 
     circuit::circuit() noexcept
             : impl_{std::make_unique<impl>()} {
 
-    }
-
-    circuit::circuit(component_factory &&factory) noexcept
-            : impl_{std::make_unique<impl>(std::move(factory))} {
     }
 
     circuit::circuit(circuit &&) noexcept = default;
@@ -52,8 +48,11 @@ namespace circuitsim {
         c.impl_->ground(src, srcp);
     }
 
-    void visit(const circuit &c, const std::function<void(const component &)> &f) {
-        c.impl_->visit(f);
+    void circuit::visit(const std::function<void(const component_view &)> &f) const {
+        impl_->visit([&](const auto &x) {
+            component_view t{&x};
+            f(t);
+        });
     }
 
 }

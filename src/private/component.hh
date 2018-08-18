@@ -5,27 +5,12 @@
 #ifndef CIRCUITSIM_COMPONENT_HH
 #define CIRCUITSIM_COMPONENT_HH
 
-#include "../component.hpp"
-#include "../dc_context.hpp"
+#include "component_view.hpp"
 #include "primitives.hh"
 
 namespace circuitsim {
 
-    template<class T>
-    class mutator {};
-
-    template<>
-    struct mutator<component> {
-        static void port(component &c, unsigned ix, int val) {
-            c.port(ix, val);
-        }
-
-        static void value(component &c, double val) {
-            c.value(val);
-        }
-    };
-
-    struct component::impl {
+    struct component_view::impl {
 
         explicit impl(primitive p) : storage_{std::move(p)} {
         }

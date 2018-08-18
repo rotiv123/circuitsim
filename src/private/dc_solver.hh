@@ -10,7 +10,7 @@
 
 #include "../dc_solver.hpp"
 #include "../circuit.hpp"
-#include "../component.hpp"
+#include "component_view.hpp"
 #include "matrix.hh"
 #include "dc_context.hh"
 #include "algebra.hh"
@@ -37,7 +37,7 @@ namespace circuitsim {
 
         bool solve(const circuit &c) const {
             dc_context ctx{c.nodes(), c.voltage_sources()};
-            visit(c, [&](const component &x) {
+            c.visit([&](const component_view &x) {
                 std::cout << x.name() << " " << x.port(0) << " " << x.port(1) << " " << x.value() << std::endl;
                 x.stamp(ctx);
             });
@@ -45,7 +45,7 @@ namespace circuitsim {
             std::cout << c.nodes() << " nodes" << std::endl;
             std::cout << c.voltage_sources() << " voltage_sources" << std::endl;
 
-            auto mt =ctx.impl_->mat();
+            auto mt = ctx.impl_->mat();
 
             print(mt);
             std::cout << "solving..." << std::endl;

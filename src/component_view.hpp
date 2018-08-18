@@ -2,8 +2,8 @@
 // Created by vitor on 15-08-2018.
 //
 
-#ifndef CIRCUITSIM_COMPONENT_HPP
-#define CIRCUITSIM_COMPONENT_HPP
+#ifndef CIRCUITSIM_COMPONENT_VIEW_HPP
+#define CIRCUITSIM_COMPONENT_VIEW_HPP
 
 #include <circuitsim/config/export.h>
 #include <memory>
@@ -12,13 +12,12 @@
 namespace circuitsim {
 
     class dc_context;
-    template <class T> class mutator;
 
-    class CIRCUITSIM_API component {
+    class CIRCUITSIM_API component_view {
     public:
-        component(component &&) noexcept;
+        component_view(const component_view &) noexcept;
 
-        ~component();
+        ~component_view();
 
         std::string_view symbol() const;
 
@@ -32,19 +31,15 @@ namespace circuitsim {
 
     private:
         friend class component_factory;
-        friend class mutator<component>;
+        friend class circuit;
 
         class impl;
 
-        explicit component(std::unique_ptr<impl>) noexcept;
+        explicit component_view(const impl*) noexcept;
 
-        std::unique_ptr<impl> impl_;
-
-        void port(unsigned ix, int val);
-
-        void value(double val);
+        const impl *impl_;
     };
 
 }
 
-#endif //CIRCUITSIM_COMPONENT_HPP
+#endif //CIRCUITSIM_COMPONENT_VIEW_HPP

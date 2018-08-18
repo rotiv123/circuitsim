@@ -30,7 +30,6 @@ int main() {
     connect(c, r1, 1, r2, 0);
     connect(c, r3, 0, r2, 0);
     ground(c, r2, 1);
-    //ground(c, r3, 1);
 
     dc_solver dc;
     if (!dc.solve(c)) {

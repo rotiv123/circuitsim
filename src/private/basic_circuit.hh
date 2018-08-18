@@ -10,16 +10,16 @@
 #include <vector>
 #include <algorithm>
 #include <string>
+#include "component_factory.hh"
 
 namespace circuitsim {
 
-    template<class ComponentFactory, class ComponentMutator>
+    template<class ComponentFactory>
     struct basic_circuit {
 
         using component_type = typename ComponentFactory::component_type;
         using components_type = std::vector<component_type>;
         using component_factory_type = ComponentFactory;
-        using mutator_type = ComponentMutator;
 
         basic_circuit() noexcept  : components_{}, factory_{}, max_node_{0} {
         }
@@ -44,22 +44,22 @@ namespace circuitsim {
             auto &destination = get(dst);
 
             if (destination.port(dstp) == -1) {
-                mutator_type::port(destination, dstp, ++max_node_);
+                destination.port(dstp, ++max_node_);
             }
 
-            mutator_type::port(source, srcp, destination.port(dstp));
+            source.port(srcp, destination.port(dstp));
         }
 
         void ground(std::string_view src, unsigned srcp) {
             auto &source = get(src);
 
-            mutator_type::port(source, srcp, 0);
+            source.port(srcp, 0);
         }
 
         void value(std::string_view src, double val) {
             auto &source = get(src);
 
-            mutator_type::value(source, val);
+            source.value(val);
         }
 
         template<class Visitor>

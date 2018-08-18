@@ -13,7 +13,7 @@
 
 namespace circuitsim {
 
-    class component;
+    class component_view;
 
     class component_factory;
 
@@ -21,8 +21,6 @@ namespace circuitsim {
     public:
 
         circuit() noexcept;
-
-        explicit circuit(component_factory &&factory) noexcept;
 
         circuit(circuit &&) noexcept;
 
@@ -34,7 +32,7 @@ namespace circuitsim {
 
         std::size_t voltage_sources() const;
 
-        friend CIRCUITSIM_API void visit(const circuit &, const std::function<void(const component &)> &);
+        void visit(const std::function<void(const component_view &)> &) const;
 
         friend CIRCUITSIM_API void set_value(circuit &, std::string_view, double);
 

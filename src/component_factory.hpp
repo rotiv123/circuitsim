@@ -10,12 +10,12 @@
 
 namespace circuitsim {
 
-    class component;
+    class component_view;
 
     class CIRCUITSIM_API component_factory {
     public:
 
-        using component_type = component;
+        using component_type = component_view;
 
         component_factory() noexcept;
 
@@ -23,9 +23,9 @@ namespace circuitsim {
 
         ~component_factory();
 
-        component_type create(std::string_view symbol, std::string name) const;
-
     private:
+        friend class circuit;
+
         class impl;
 
         std::unique_ptr<impl> impl_;
