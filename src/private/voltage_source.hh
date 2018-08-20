@@ -19,7 +19,8 @@ namespace circuitsim {
         }
     };
 
-    struct voltage_source : public basic_component<voltage_source, 2> {
+    class voltage_source : public basic_component<voltage_source, 2> {
+	public:
         using base = basic_component<voltage_source, 2>;
 
         explicit voltage_source(std::string name) noexcept

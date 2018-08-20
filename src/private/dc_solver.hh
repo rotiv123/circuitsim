@@ -18,8 +18,8 @@
 
 namespace circuitsim {
 
-    struct dc_solver::impl {
-
+    class dc_solver::impl {
+	public:
         bool solve(const circuit &c) {
             std::vector<int> nodes_map;
             auto max_node_id = c.nodes() + 1;

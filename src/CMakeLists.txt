@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.10)
-project(circuitsim)
+project(CIRCUITSIM)
 
 include(GenerateExportHeader)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_library(circuitsim SHARED
+add_library(CIRCUITSIM SHARED
         circuitsim.cpp
         circuitsim.h
         private/component_factory.hh
@@ -31,18 +31,18 @@ add_library(circuitsim SHARED
         private/dc_context.hh)
 
 
-target_include_directories(circuitsim PUBLIC
+target_include_directories(CIRCUITSIM PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_BINARY_DIR}/include)
 
-generate_export_header(circuitsim
+generate_export_header(CIRCUITSIM
         BASE_NAME CIRCUITSIM
         EXPORT_MACRO_NAME CIRCUITSIM_API
         NO_EXPORT_MACRO_NAME CIRCUITSIM_PRIVATE
         EXPORT_FILE_NAME include/circuitsim/config/export.h
         STATIC_DEFINE CIRCUITSIM_STATIC)
 
-set_target_properties (circuitsim PROPERTIES
+set_target_properties (CIRCUITSIM PROPERTIES
         DEFINE_SYMBOL CIRCUITSIM_EXPORTS
         CXX_VISIBILITY_PRESET hidden
         C_VISIBILITY_PRESET hidden
@@ -61,7 +61,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/circuitsim/config/export.h
         DESTINATION include/circuitsim/config
         COMPONENT dev)
 
-install(TARGETS circuitsim
+install(TARGETS CIRCUITSIM
         RUNTIME DESTINATION bin COMPONENT runtime
         LIBRARY DESTINATION lib COMPONENT runtime
         ARCHIVE DESTINATION lib COMPONENT dev)

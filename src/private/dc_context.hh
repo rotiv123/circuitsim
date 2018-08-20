@@ -12,8 +12,8 @@
 
 namespace circuitsim {
 
-    struct dc_context_view::impl {
-
+    class dc_context_view::impl {
+	public:
         static constexpr double OPEN_AIR_RESISTANCE = 1000000000;
 
         impl(unsigned n, unsigned m, std::vector<int> &map) : G{n, n}, B{n, m}, C{m, n}, D{m, m}, i{n, 1}, e{m, 1},

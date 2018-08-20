@@ -26,7 +26,7 @@ namespace circuitsim {
     private:
         friend class circuit;
 
-        class impl;
+        class CIRCUITSIM_PRIVATE impl;
 
         std::unique_ptr<impl> impl_;
     };

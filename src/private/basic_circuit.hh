@@ -16,8 +16,8 @@
 namespace circuitsim {
 
     template<class ComponentFactory>
-    struct basic_circuit {
-
+    class basic_circuit {
+	public:
         using component_type = typename ComponentFactory::component_type;
         using components_type = std::vector<component_type>;
         using component_factory_type = ComponentFactory;

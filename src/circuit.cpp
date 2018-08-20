@@ -10,7 +10,8 @@
 
 namespace circuitsim {
 
-    struct circuit::impl : public basic_circuit<component_factory::impl> {
+    class circuit::impl : public basic_circuit<component_factory::impl> {
+	public:
         using base = basic_circuit<component_factory::impl>;
         using base::base;
     };

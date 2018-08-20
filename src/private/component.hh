@@ -10,8 +10,8 @@
 
 namespace circuitsim {
 
-    struct component_view::impl {
-
+    class component_view::impl {
+	public:
         explicit impl(primitive p) : storage_{std::move(p)} {
         }
 

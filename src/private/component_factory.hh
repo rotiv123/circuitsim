@@ -18,8 +18,8 @@ namespace circuitsim {
     template <class T> class basic_circuit;
     using primitive_creator = std::function<primitive(std::string)>;
 
-    struct component_factory::impl {
-
+    class component_factory::impl {
+	public:
         using component_type = component_view::impl;
 
         impl() noexcept : blue_prints_{} {

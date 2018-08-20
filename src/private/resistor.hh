@@ -20,7 +20,8 @@ namespace circuitsim {
         }
     };
 
-    struct resistor : public basic_component<resistor, 2> {
+    class resistor : public basic_component<resistor, 2> {
+	public:
         using base = basic_component<resistor, 2>;
 
         explicit resistor(std::string name) noexcept

@@ -40,7 +40,7 @@ namespace circuitsim {
         void ground(std::string_view src, unsigned srcp);
 
     private:
-        class impl;
+        class CIRCUITSIM_PRIVATE impl;
 
         std::unique_ptr<impl> impl_;
     };
