@@ -54,10 +54,10 @@ int main() {
         dc.visit([](auto &&dp) {
             std::visit([](auto &&x) {
                 using T = std::decay_t<decltype(x)>;
-                if constexpr (std::is_same_v<T, node_voltage>) {
+                if constexpr (std::is_same_v<T, circuitsim::node_voltage>) {
                     std::cout << "v_" << x.node_id << " = " << x.value << std::endl;
                 }
-                else if constexpr (std::is_same_v<T, voltage_source_current>) {
+                else if constexpr (std::is_same_v<T, circuitsim::voltage_source_current>) {
                     std::cout << "i_" << x.voltage_source_id << " = " << x.value << std::endl;
                 }
             }, dp);

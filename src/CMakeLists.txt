@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.10)
 project(circuitsim)
 
 include(GenerateExportHeader)
@@ -48,7 +48,7 @@ set_target_properties (circuitsim PROPERTIES
         C_VISIBILITY_PRESET hidden
         VISIBILITY_INLINES_HIDDEN ON)
 
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
         DESTINATION include/circuitsim
         COMPONENT dev
         FILES_MATCHING PATTERN "*.hpp")
@@ -64,4 +64,4 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/circuitsim/config/export.h
 install(TARGETS circuitsim
         RUNTIME DESTINATION bin COMPONENT runtime
         LIBRARY DESTINATION lib COMPONENT runtime
-        ARCHIVE DESTINATION include COMPONENT dev)
+        ARCHIVE DESTINATION lib COMPONENT dev)

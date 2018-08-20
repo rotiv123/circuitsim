@@ -42,11 +42,11 @@ namespace circuitsim {
                     voltage_sources++;
                 }
 
-                if (nodes_map[n1] == -1) {
+                if (n1 > -1 && nodes_map[n1] == -1) {
                     nodes_map[n1] = static_cast<int>(++nodes);
                 }
 
-                if (nodes_map[n2] == -1) {
+                if (n2 > -1 && nodes_map[n2] == -1) {
                     nodes_map[n2] = static_cast<int>(++nodes);
                 }
             });
