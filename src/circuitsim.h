@@ -8,7 +8,7 @@
 extern "C" {
 #endif
 
-CIRCUITSIM_API void circuitsim_hello();
+CIRCUITSIM_API const char* circuitsim_version();
 
 #ifdef __cplusplus
 }
