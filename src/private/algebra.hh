@@ -8,8 +8,8 @@
 #include <cstddef>
 #include <cassert>
 
-#include <iostream>
-#include <iomanip>
+// #include <iostream>
+// #include <iomanip>
 
 namespace circuitsim {
 
@@ -103,20 +103,20 @@ namespace circuitsim {
         return true;
     }
 
-    template<class Matrix>
-    void print(const Matrix mat) {
-        using traits = circuitsim::matrix_traits<Matrix>;
-        const auto n = traits::cols(mat);
-        const auto m = traits::rows(mat);
-
-        for (int i = 0; i < m; ++i) {
-            std::cout << "[" << std::setw(9) << traits::at(mat, i, 0);
-            for (int j = 1; j < n; ++j) {
-                std::cout << ", " << std::setw(9) << traits::at(mat, i, j);
-            }
-            std::cout << "]" << std::endl;
-        }
-    }
+//    template<class Matrix>
+//    void print(const Matrix mat) {
+//        using traits = circuitsim::matrix_traits<Matrix>;
+//        const auto n = traits::cols(mat);
+//        const auto m = traits::rows(mat);
+//
+//        for (int i = 0; i < m; ++i) {
+//            std::cout << "[" << std::setw(9) << traits::at(mat, i, 0);
+//            for (int j = 1; j < n; ++j) {
+//                std::cout << ", " << std::setw(9) << traits::at(mat, i, j);
+//            }
+//            std::cout << "]" << std::endl;
+//        }
+//    }
 
 }
 

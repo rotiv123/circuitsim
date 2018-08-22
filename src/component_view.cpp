@@ -7,7 +7,7 @@
 
 namespace circuitsim {
 
-    component_view::component_view(const impl *inner) noexcept
+    component_view::component_view(const component *inner) noexcept
             : impl_{inner} {
     }
 

@@ -15,12 +15,14 @@
 
 namespace circuitsim {
 
-    template <class T> class basic_circuit;
-    using primitive_creator = std::function<primitive(std::string)>;
+    template<class T>
+    class basic_circuit;
+
+    using primitive_creator = std::function<primitive(std::string &&)>;
 
     class component_factory::impl {
-	public:
-        using component_type = component_view::impl;
+    public:
+        using component_type = component;
 
         impl() noexcept : blue_prints_{} {
             blue_prints_[component_traits<resistor>::symbol()] = [](std::string &&name) {
@@ -31,12 +33,13 @@ namespace circuitsim {
             };
         }
 
-        component_view::impl create(std::string_view symbol, std::string name) const {
-            return component_view::impl{blue_prints_.at(symbol)(std::move(name))};
+        component create(std::string_view symbol, std::string name) const {
+            return component{blue_prints_.at(symbol)(std::move(name))};
         }
 
     private:
         friend class basic_circuit<component_factory::impl>;
+
         std::unordered_map<std::string_view, primitive_creator> blue_prints_;
     };
 

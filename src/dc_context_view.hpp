@@ -22,7 +22,7 @@ namespace circuitsim {
         void stamp_voltage(int pn, int nn, double v);
 
     private:
-        class impl;
+        class CIRCUITSIM_PRIVATE impl;
         friend class dc_solver;
 
         explicit dc_context_view(impl*) noexcept;

@@ -14,9 +14,7 @@
 
 namespace circuitsim {
 
-    class component_factory;
-
-    class CIRCUITSIM_API circuit {
+    class CIRCUITSIM_API circuit final {
     public:
 
         circuit() noexcept;

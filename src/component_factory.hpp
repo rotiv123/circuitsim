@@ -12,7 +12,7 @@ namespace circuitsim {
 
     class component_view;
 
-    class CIRCUITSIM_API component_factory {
+    class CIRCUITSIM_API component_factory final {
     public:
 
         using component_type = component_view;

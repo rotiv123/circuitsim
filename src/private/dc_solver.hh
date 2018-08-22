@@ -19,7 +19,7 @@
 namespace circuitsim {
 
     class dc_solver::impl {
-	public:
+    public:
         bool solve(const circuit &c) {
             std::vector<int> nodes_map;
             auto max_node_id = c.nodes() + 1;
@@ -64,20 +64,8 @@ namespace circuitsim {
             auto mt = ctx.mat();
             //print(mt);
             auto ok = circuitsim::solve(mt);
-            std::vector<data_point> dps{};
-            for (auto i = 0u; i < nodes; ++i) {
-                auto it = std::find(std::begin(nodes_map), std::end(nodes_map), i + 1);
-                dps.emplace_back(
-                        node_voltage{(unsigned) std::distance(std::begin(nodes_map), it),
-                                     mt.at(i, mt.cols() - 1)});
-            }
+            update_datapoints(nodes_map, nodes, voltage_sources, mt);
 
-            for (auto i = 0u; i < voltage_sources; ++i) {
-                dps.emplace_back(
-                        voltage_source_current{i, mt.at(mt.rows() - (voltage_sources + i), mt.cols() - 1)});
-            }
-
-            std::swap(dps, data_points_);
             return ok;
         }
 
@@ -89,6 +77,26 @@ namespace circuitsim {
 
     private:
         std::vector<data_point> data_points_;
+
+        void update_datapoints(const std::vector<int> &nodes_map,
+                               unsigned nodes,
+                               unsigned voltage_sources,
+                               const matrix &mt) {
+            std::vector<data_point> dps{};
+            for (auto i = 0u; i < nodes; ++i) {
+                auto it = find(std::begin(nodes_map), std::end(nodes_map), i + 1);
+                dps.emplace_back(
+                        node_voltage{(unsigned) std::distance(std::begin(nodes_map), it),
+                                     mt.at(i, mt.cols() - 1)});
+            }
+
+            for (auto i = 0u; i < voltage_sources; ++i) {
+                dps.emplace_back(
+                        voltage_source_current{i, mt.at(mt.rows() - (voltage_sources + i), mt.cols() - 1)});
+            }
+
+            std::swap(dps, data_points_);
+        }
     };
 
 }

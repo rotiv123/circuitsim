@@ -18,31 +18,38 @@ namespace circuitsim {
         return primitive{T{std::forward<Args>(args)...}};
     }
 
-    inline std::string_view get_symbol(const primitive &c) {
+    template <class Primitive>
+    std::string_view get_symbol(const Primitive &c) {
         return std::visit([](const auto &x) { return x.symbol(); }, c);
     }
 
-    inline std::string_view get_name(const primitive &c) {
+    template <class Primitive>
+    std::string_view get_name(const Primitive &c) {
         return std::visit([](const auto &x) { return x.name(); }, c);
     }
 
-    inline int get_port(const primitive &c, unsigned ix) {
+    template <class Primitive>
+    int get_port(const Primitive &c, unsigned ix) {
         return std::visit([=](const auto &x) { return x.port(ix); }, c);
     }
 
-    inline void set_port(primitive &c, unsigned ix, int val) {
-        std::visit([=](auto &x) { return x.port(ix, val); }, c);
+    template <class Primitive>
+    void set_port(Primitive &c, unsigned ix, int val) {
+        std::visit([=](auto &x) { x.port(ix, val); }, c);
     }
 
-    inline double get_value(const primitive &c) {
+    template <class Primitive>
+    double get_value(const Primitive &c) {
         return std::visit([](const auto &x) { return x.value(); }, c);
     }
 
-    inline void set_value(primitive &c, double val) {
-        std::visit([=](auto &x) { return x.value(val); }, c);
+    template <class Primitive>
+    void set_value(Primitive &c, double val) {
+        std::visit([=](auto &x) { x.value(val); }, c);
     }
 
-    inline void stamp(const primitive &c, dc_context_view &ctx) {
+    template <class Primitive>
+    void stamp(const Primitive &c, dc_context_view &ctx) {
         std::visit([&](const auto &x) { return x.stamp(ctx); }, c);
     }
 }

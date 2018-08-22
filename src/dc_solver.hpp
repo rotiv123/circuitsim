@@ -26,7 +26,7 @@ namespace circuitsim {
 
     using data_point = std::variant<node_voltage, voltage_source_current>;
 
-    class CIRCUITSIM_API dc_solver {
+    class CIRCUITSIM_API dc_solver final {
     public:
         dc_solver() noexcept;
 

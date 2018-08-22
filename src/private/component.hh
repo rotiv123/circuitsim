@@ -5,14 +5,13 @@
 #ifndef CIRCUITSIM_COMPONENT_HH
 #define CIRCUITSIM_COMPONENT_HH
 
-#include "../component_view.hpp"
 #include "primitives.hh"
 
 namespace circuitsim {
 
-    class component_view::impl {
+    class component {
 	public:
-        explicit impl(primitive p) : storage_{std::move(p)} {
+        explicit component(primitive p) : storage_{std::move(p)} {
         }
 
         std::string_view symbol() const {

@@ -12,6 +12,7 @@
 namespace circuitsim {
 
     class dc_context_view;
+    class component;
 
     class CIRCUITSIM_API component_view {
     public:
@@ -33,11 +34,9 @@ namespace circuitsim {
         friend class component_factory;
         friend class circuit;
 
-        class impl;
+        explicit component_view(const component*) noexcept;
 
-        explicit component_view(const impl*) noexcept;
-
-        const impl *impl_;
+        const component *impl_;
     };
 
 }
