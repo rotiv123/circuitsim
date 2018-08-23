@@ -12,13 +12,12 @@
 namespace circuitsim {
 
     class dc_context_view;
-    class component;
 
     class CIRCUITSIM_API component_view {
     public:
-        component_view(const component_view &) noexcept;
+        struct CIRCUITSIM_INTERNAL concept;
 
-        ~component_view();
+        CIRCUITSIM_INTERNAL explicit component_view(const concept *) noexcept;
 
         std::string_view symbol() const;
 
@@ -28,15 +27,10 @@ namespace circuitsim {
 
         int port(unsigned ix) const;
 
-        void stamp(dc_context_view&) const;
+        void stamp(dc_context_view &) const;
 
-    private:
-        friend class component_factory;
-        friend class circuit;
-
-        explicit component_view(const component*) noexcept;
-
-        const component *impl_;
+    protected:
+        const concept *impl_;
     };
 
 }

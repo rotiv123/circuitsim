@@ -11,6 +11,7 @@
 
 namespace circuitsim {
 
+    class dc_context_view;
     using primitive = std::variant<resistor, voltage_source>;
 
     template<class T, typename ...Args>

@@ -7,10 +7,11 @@
 
 #include <variant>
 #include "resistor2d.hh"
+#include "voltage_source2d.hh"
 
 namespace circuitsim::ui {
 
-    using primitive2d = std::variant<resistor2d>;
+    using primitive2d = std::variant<resistor2d, voltage_source2d>;
 
     template<class T, typename ...Args>
     primitive2d make_primitive2d(Args ...args) {

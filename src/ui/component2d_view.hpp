@@ -6,20 +6,18 @@
 #define CIRCUITSIM_COMPONENT2D_VIEW_HPP
 
 #include <circuitsim/config/export.h>
+#include "point2d.hpp"
+#include "../component_view.hpp"
 
 namespace circuitsim::ui {
 
-    class component2d;
-
-    class CIRCUITSIM_API component2d_view {
+    class CIRCUITSIM_API component2d_view : public component_view {
     public:
-        component2d_view(const component2d_view &) noexcept;
+        struct CIRCUITSIM_INTERNAL concept;
 
-        ~component2d_view();
-    private:
-        explicit component2d_view(const component2d*) noexcept;
+        CIRCUITSIM_INTERNAL explicit component2d_view(const concept *) noexcept;
 
-        const component2d* src_;
+        const point2d &position() const;
     };
 
 }

@@ -6,11 +6,10 @@
 #define CIRCUITSIM_DC_CONTEXT_HPP
 
 #include <circuitsim/config/export.h>
-#include <memory>
 
 namespace circuitsim {
 
-    class CIRCUITSIM_API dc_context_view {
+    class CIRCUITSIM_API dc_context_view final {
     public:
 
         dc_context_view(dc_context_view &&) noexcept;
@@ -22,10 +21,11 @@ namespace circuitsim {
         void stamp_voltage(int pn, int nn, double v);
 
     private:
-        class CIRCUITSIM_PRIVATE impl;
+        class CIRCUITSIM_INTERNAL impl;
+
         friend class dc_solver;
 
-        explicit dc_context_view(impl*) noexcept;
+        explicit dc_context_view(impl *) noexcept;
 
         impl *impl_;
     };

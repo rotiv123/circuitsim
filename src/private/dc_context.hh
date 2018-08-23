@@ -5,7 +5,9 @@
 #ifndef CIRCUITSIM_DC_CONTEXT_HH
 #define CIRCUITSIM_DC_CONTEXT_HH
 
-#include <utility>
+#include <functional>
+#include <vector>
+#include <tuple>
 #include "../dc_context_view.hpp"
 #include "algebra.hh"
 #include "matrix.hh"

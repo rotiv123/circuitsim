@@ -39,7 +39,7 @@ namespace circuitsim {
         void visit(const std::function<void(const data_point &)> &) const;
 
     private:
-        class CIRCUITSIM_PRIVATE impl;
+        class CIRCUITSIM_INTERNAL impl;
 
         std::unique_ptr<impl> impl_;
     };

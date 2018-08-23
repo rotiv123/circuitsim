@@ -4,7 +4,6 @@
 
 #include "component_factory.hpp"
 #include "private/component_factory.hh"
-#include "private/component.hh"
 
 namespace circuitsim {
 

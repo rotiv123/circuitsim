@@ -3,17 +3,13 @@
 //
 
 #include "component_view.hpp"
-#include "private/component.hh"
+#include "private/component_view.hh"
 
 namespace circuitsim {
 
-    component_view::component_view(const component *inner) noexcept
+    component_view::component_view(const concept *inner) noexcept
             : impl_{inner} {
     }
-
-    component_view::component_view(const component_view &) noexcept = default;
-
-    component_view::~component_view() = default;
 
     std::string_view component_view::symbol() const {
         return impl_->symbol();

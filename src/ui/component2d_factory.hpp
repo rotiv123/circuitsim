@@ -25,7 +25,7 @@ namespace circuitsim::ui {
     private:
         friend class circuit2d;
 
-        class CIRCUITSIM_PRIVATE impl;
+        class CIRCUITSIM_INTERNAL impl;
 
         std::unique_ptr<impl> impl_;
     };

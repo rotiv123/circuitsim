@@ -4,25 +4,25 @@
 
 #include "circuit2d.hpp"
 #include "component2d_view.hpp"
-#include "../private/basic_circuit.hh"
-#include "private/component.hh"
-#include "private/component2d_factory.hh"
+#include "private/circuit2d.hh"
 
 namespace circuitsim::ui {
 
-    class circuit2d::impl : public basic_circuit<component2d_factory::impl> {
-    public:
-        using base = basic_circuit<component2d_factory::impl>;
-        using base::base;
-    };
-
     circuit2d::circuit2d() noexcept
-            : impl_{std::make_unique<impl>()} {
+            : circuit2d{std::make_unique<impl>()} {
+    }
+
+    circuit2d::circuit2d(std::unique_ptr<concept> &&x) noexcept
+            : circuit{std::move(x)} {
 
     }
 
     circuit2d::circuit2d(circuit2d &&) noexcept = default;
 
     circuit2d::~circuit2d() = default;
+
+    void circuit2d::visit(const std::function<void(const component2d_view &)> &f) const {
+        reinterpret_cast<const concept *>(impl_.get())->visit(f);
+    }
 
 }

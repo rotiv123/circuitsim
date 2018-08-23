@@ -5,11 +5,9 @@
 #ifndef CIRCUITSIM_BASIC_COMPONENT2D_HH
 #define CIRCUITSIM_BASIC_COMPONENT2D_HH
 
-#include <tuple>
+#include "../point2d.hpp"
 
 namespace circuitsim::ui {
-
-    using point2d = std::tuple<float, float>;
 
     template <class Derived, class Base>
     class basic_component2d : public Base {
