@@ -11,13 +11,13 @@
 #include <algorithm>
 #include <string>
 #include <unordered_map>
-#include "component_factory.hh"
+#include <functional>
 
 namespace circuitsim {
 
-    template<class ComponentFactory>
-    class basic_circuit {
-	public:
+    template<class ComponentFactory, class Concept>
+    class basic_circuit : public Concept {
+    public:
         using component_type = typename ComponentFactory::component_type;
         using components_type = std::vector<component_type>;
         using component_factory_type = ComponentFactory;
@@ -38,36 +38,36 @@ namespace circuitsim {
             auto c = factory_.create(symbol, std::move(name));
             check_add(c);
             components_.push_back(std::move(c));
-            return std::string{components_.back().name()};
+            return std::string{get_name(components_.back())};
         }
 
         void remove(std::string_view src) {
             components_.erase(std::remove_if(std::begin(components_),
                                              std::end(components_),
-                                             [&](const auto &x) { return x.name() == src; }), std::end(components_));
+                                             [&](const auto &x) { return get_name(x) == src; }), std::end(components_));
         }
 
         void connect(std::string_view src, unsigned srcp, std::string_view dst, unsigned dstp) {
             auto &source = get(src);
             auto &destination = get(dst);
 
-            if (destination.port(dstp) == -1) {
-                destination.port(dstp, ++max_node_);
+            if (get_port(destination, dstp) == -1) {
+                set_port(destination, dstp, ++max_node_);
             }
 
-            source.port(srcp, destination.port(dstp));
+            set_port(source, srcp, get_port(destination, dstp));
         }
 
         void ground(std::string_view src, unsigned srcp) {
             auto &source = get(src);
 
-            source.port(srcp, 0);
+            set_port(source, srcp, 0);
         }
 
         void value(std::string_view src, double val) {
             auto &source = get(src);
 
-            source.value(val);
+            set_value(source, val);
         }
 
         template<class Visitor>
@@ -91,7 +91,7 @@ namespace circuitsim {
             assert(std::all_of(std::begin(components_),
                                std::end(components_),
                                [&](const auto &x) {
-                                   return x.name() != c.name();
+                                   return get_name(x) != get_name(c);
                                }));
         }
 
@@ -99,7 +99,7 @@ namespace circuitsim {
             auto it = std::find_if(std::begin(components_),
                                    std::end(components_),
                                    [=](auto &&x) {
-                                       return name == x.name();
+                                       return name == get_name(x);
                                    });
 
             assert(it != std::end(components_));

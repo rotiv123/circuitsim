@@ -7,20 +7,28 @@
 
 #include <circuitsim/config/export.h>
 #include <memory>
+#include <functional>
+#include "component2d_view.hpp"
+#include "../circuit.hpp"
 
 namespace circuitsim::ui {
 
-    class CIRCUITSIM_API circuit2d {
+    class CIRCUITSIM_API circuit2d : public circuit {
     public:
         circuit2d() noexcept;
 
         circuit2d(circuit2d &&) noexcept;
 
-        ~circuit2d();
-    private:
-        class CIRCUITSIM_PRIVATE impl;
+        ~circuit2d() override;
 
-        std::unique_ptr<impl> impl_;
+        void visit(const std::function<void(const component2d_view &)> &) const;
+
+    protected:
+        struct CIRCUITSIM_PRIVATE concept;
+        explicit circuit2d(std::unique_ptr<concept>&&) noexcept;
+    private:
+        struct CIRCUITSIM_PRIVATE impl;
+        concept *impl_;
     };
 }
 

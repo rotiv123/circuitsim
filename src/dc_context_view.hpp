@@ -6,7 +6,6 @@
 #define CIRCUITSIM_DC_CONTEXT_HPP
 
 #include <circuitsim/config/export.h>
-#include <memory>
 
 namespace circuitsim {
 

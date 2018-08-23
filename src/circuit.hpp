@@ -14,14 +14,14 @@
 
 namespace circuitsim {
 
-    class CIRCUITSIM_API circuit final {
+    class CIRCUITSIM_API circuit {
     public:
 
         circuit() noexcept;
 
         circuit(circuit &&) noexcept;
 
-        ~circuit();
+        virtual ~circuit();
 
         std::string add(std::string_view symbol);
 
@@ -37,10 +37,14 @@ namespace circuitsim {
 
         void ground(std::string_view src, unsigned srcp);
 
-    private:
-        class CIRCUITSIM_PRIVATE impl;
+    protected:
+        struct CIRCUITSIM_PRIVATE concept;
+        explicit circuit(std::unique_ptr<concept>&&) noexcept;
 
-        std::unique_ptr<impl> impl_;
+    private:
+        struct CIRCUITSIM_PRIVATE impl;
+
+        std::unique_ptr<concept> impl_;
     };
 }
 

@@ -6,20 +6,19 @@
 #define CIRCUITSIM_COMPONENT2D_VIEW_HPP
 
 #include <circuitsim/config/export.h>
+#include "../component_view.hpp"
 
 namespace circuitsim::ui {
 
-    class component2d;
-
-    class CIRCUITSIM_API component2d_view {
+    class CIRCUITSIM_API component2d_view : public component_view {
     public:
-        component2d_view(const component2d_view &) noexcept;
 
-        ~component2d_view();
+    protected:
+        struct CIRCUITSIM_PRIVATE impl;
+        explicit component2d_view(const impl *) noexcept;
     private:
-        explicit component2d_view(const component2d*) noexcept;
-
-        const component2d* src_;
+        friend class circuit2d;
+        friend class component2d;
     };
 
 }

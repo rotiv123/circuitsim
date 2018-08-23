@@ -19,7 +19,6 @@ add_library(CIRCUITSIM SHARED
         component_factory.hpp
         component_view.cpp
         component_view.hpp
-        private/component.hh
         primitives.cpp
         primitives.hpp
         dc_solver.cpp
@@ -28,7 +27,7 @@ add_library(CIRCUITSIM SHARED
         private/algebra.hh
         dc_context_view.cpp
         dc_context_view.hpp
-        private/dc_context.hh ui/circuit2d.cpp ui/circuit2d.hpp ui/private/basic_component2d.hh ui/private/resistor2d.hh ui/private/primitives2d.hh ui/private/component2d_factory.hh ui/component2d_factory.cpp ui/component2d_factory.hpp ui/private/component2d.hh ui/component2d_view.cpp ui/component2d_view.hpp)
+        private/dc_context.hh ui/circuit2d.cpp ui/circuit2d.hpp ui/private/basic_component2d.hh ui/private/resistor2d.hh ui/private/primitives2d.hh ui/private/component2d_factory.hh ui/component2d_factory.cpp ui/component2d_factory.hpp ui/component2d_view.cpp ui/component2d_view.hpp ui/private/basic_circuit2d.hh private/circuit.hh ui/private/circuit2d.hh private/component_view.hh private/basic_component_view.hh ui/private/basic_component2d_view.hh ui/private/component2d_view.hh ui/private/voltage_source2d.hh)
 
 
 target_include_directories(CIRCUITSIM PUBLIC

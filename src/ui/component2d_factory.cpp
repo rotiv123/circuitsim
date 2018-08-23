@@ -4,7 +4,6 @@
 
 #include "component2d_factory.hpp"
 #include "private/component2d_factory.hh"
-#include "private/component2d.hh"
 
 namespace circuitsim::ui {
 

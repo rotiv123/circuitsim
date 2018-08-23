@@ -16,7 +16,7 @@ int main() {
     using namespace circuitsim;
     using namespace circuitsim::ui;
 
-    circuit c{};
+    circuit2d c{};
 
     auto v1 = add_voltage_source(c);
     auto v2 = add_voltage_source(c);

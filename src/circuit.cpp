@@ -4,20 +4,16 @@
 
 #include "circuit.hpp"
 #include "component_view.hpp"
-#include "private/basic_circuit.hh"
-#include "private/component.hh"
-#include "component_factory.hpp"
+#include "private/circuit.hh"
 
 namespace circuitsim {
 
-    class circuit::impl : public basic_circuit<component_factory::impl> {
-	public:
-        using base = basic_circuit<component_factory::impl>;
-        using base::base;
-    };
-
     circuit::circuit() noexcept
             : impl_{std::make_unique<impl>()} {
+
+    }
+
+    circuit::circuit(std::unique_ptr<concept>&& x) noexcept : impl_{std::move(x)} {
 
     }
 
@@ -50,10 +46,7 @@ namespace circuitsim {
     }
 
     void circuit::visit(const std::function<void(const component_view &)> &f) const {
-        impl_->visit([&](const auto &x) {
-            component_view t{&x};
-            f(t);
-        });
+        impl_->visit(f);
     }
 
 }
