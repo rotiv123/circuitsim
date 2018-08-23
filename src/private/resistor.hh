@@ -11,26 +11,24 @@
 
 namespace circuitsim {
 
-    class resistor;
+    class resistor : public basic_component<resistor, 2> {
+    public:
+        using base = basic_component<resistor, 2>;
+        using base::base;
+    };
 
     template<>
     struct component_traits<resistor> {
         static constexpr std::string_view symbol() {
             return "R";
         }
-    };
 
-    class resistor : public basic_component<resistor, 2> {
-	public:
-        using base = basic_component<resistor, 2>;
-
-        explicit resistor(std::string name) noexcept
-                : base{std::move(name)} {
-            value(100);
+        static constexpr double default_value() {
+            return 100;
         }
 
-        void stamp(dc_context_view &ctx) const {
-            ctx.stamp_resistance(port(0), port(1), value());
+        static void stamp(const resistor &x, dc_context_view &ctx) {
+            ctx.stamp_resistance(x.port(0), x.port(1), x.value());
         }
     };
 

@@ -10,26 +10,24 @@
 
 namespace circuitsim {
 
-    class voltage_source;
+    class voltage_source : public basic_component<voltage_source, 2> {
+    public:
+        using base = basic_component<voltage_source, 2>;
+        using base::base;
+    };
 
     template<>
     struct component_traits<voltage_source> {
         static constexpr std::string_view symbol() {
             return "V";
         }
-    };
 
-    class voltage_source : public basic_component<voltage_source, 2> {
-	public:
-        using base = basic_component<voltage_source, 2>;
-
-        explicit voltage_source(std::string name) noexcept
-        : base{std::move(name)} {
-            value(5);
+        static constexpr double default_value() {
+            return 5;
         }
 
-        void stamp(dc_context_view &ctx) const {
-            ctx.stamp_voltage(port(0), port(1), value());
+        static void stamp(const voltage_source &x, dc_context_view &ctx) {
+            ctx.stamp_voltage(x.port(0), x.port(1), x.value());
         }
     };
 

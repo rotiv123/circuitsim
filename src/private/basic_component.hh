@@ -12,6 +12,8 @@
 
 namespace circuitsim {
 
+    class dc_context_view;
+
     template<class Component>
     struct component_traits {
         static constexpr std::string_view symbol() {
@@ -22,7 +24,7 @@ namespace circuitsim {
     template<class Derived, std::size_t NPorts>
     struct basic_component {
         explicit basic_component(std::string name) noexcept
-                : name_{std::move(name)}, ports_{}, value_{} {
+                : name_{std::move(name)}, ports_{}, value_{component_traits<Derived>::default_value()} {
             std::fill(std::begin(ports_), std::end(ports_), -1);
         }
 
@@ -49,6 +51,10 @@ namespace circuitsim {
 
         std::string_view symbol() const {
             return component_traits<Derived>::symbol();
+        }
+
+        void stamp(dc_context_view &ctx) const {
+            return component_traits<Derived>::stamp(*static_cast<const Derived *>(this), ctx);
         }
 
     private:

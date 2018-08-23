@@ -44,7 +44,10 @@ namespace circuitsim {
         void remove(std::string_view src) {
             components_.erase(std::remove_if(std::begin(components_),
                                              std::end(components_),
-                                             [&](const auto &x) { return get_name(x) == src; }), std::end(components_));
+                                             [&](const auto &x) {
+                                                 return get_name(x) == src;
+                                             }),
+                              std::end(components_));
         }
 
         void connect(std::string_view src, unsigned srcp, std::string_view dst, unsigned dstp) {
