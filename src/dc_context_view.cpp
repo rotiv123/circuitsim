@@ -11,10 +11,6 @@ namespace circuitsim {
             : impl_{x} {
     }
 
-    dc_context_view::dc_context_view(dc_context_view &&) noexcept = default;
-
-    dc_context_view::~dc_context_view() = default;
-
     void dc_context_view::stamp_resistance(int n1, int n2, double r) {
         impl_->stamp_resistance(n1, n2, r);
     }

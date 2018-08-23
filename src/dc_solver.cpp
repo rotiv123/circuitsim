@@ -14,6 +14,8 @@ namespace circuitsim {
 
     dc_solver::~dc_solver() = default;
 
+    dc_solver &dc_solver::operator=(dc_solver &&) noexcept = default;
+
     bool dc_solver::solve(const circuit &c) {
         return impl_->solve(c);
     }

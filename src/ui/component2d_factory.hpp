@@ -22,6 +22,8 @@ namespace circuitsim::ui {
 
         ~component2d_factory();
 
+        component2d_factory &operator=(component2d_factory &&) noexcept;
+
     private:
         friend class circuit2d;
 

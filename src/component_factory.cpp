@@ -15,4 +15,6 @@ namespace circuitsim {
     component_factory::component_factory(component_factory &&) noexcept = default;
 
     component_factory::~component_factory() = default;
+
+    component_factory &component_factory::operator=(component_factory &&) noexcept = default;
 }

@@ -21,7 +21,9 @@ namespace circuitsim {
 
         circuit(circuit &&) noexcept;
 
-        virtual ~circuit();
+        ~circuit();
+
+        circuit &operator=(circuit &&) noexcept;
 
         std::string add(std::string_view symbol);
 

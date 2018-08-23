@@ -19,7 +19,7 @@ namespace circuitsim::ui {
 
         circuit2d(circuit2d &&) noexcept;
 
-        ~circuit2d() override;
+        circuit2d &operator=(circuit2d &&) noexcept;
 
         void visit(const std::function<void(const component2d_view &)> &) const;
 

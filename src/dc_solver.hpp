@@ -34,6 +34,8 @@ namespace circuitsim {
 
         ~dc_solver();
 
+        dc_solver &operator=(dc_solver &&) noexcept;
+
         bool solve(const circuit &);
 
         void visit(const std::function<void(const data_point &)> &) const;

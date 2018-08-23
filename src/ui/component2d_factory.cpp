@@ -15,4 +15,6 @@ namespace circuitsim::ui {
     component2d_factory::component2d_factory(component2d_factory &&) noexcept = default;
 
     component2d_factory::~component2d_factory() = default;
+
+    component2d_factory &component2d_factory::operator=(component2d_factory &&) noexcept = default;
 }

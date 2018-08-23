@@ -21,6 +21,8 @@ namespace circuitsim {
 
         component_factory(component_factory &&) noexcept;
 
+        component_factory &operator=(component_factory &&) noexcept;
+
         ~component_factory();
 
     private:

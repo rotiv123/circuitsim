@@ -19,7 +19,7 @@ namespace circuitsim::ui {
 
     circuit2d::circuit2d(circuit2d &&) noexcept = default;
 
-    circuit2d::~circuit2d() = default;
+    circuit2d &circuit2d::operator=(circuit2d &&) noexcept = default;
 
     void circuit2d::visit(const std::function<void(const component2d_view &)> &f) const {
         reinterpret_cast<const concept *>(impl_.get())->visit(f);

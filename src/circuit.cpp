@@ -21,6 +21,8 @@ namespace circuitsim {
 
     circuit::~circuit() = default;
 
+    circuit &circuit::operator=(circuit &&) noexcept = default;
+
     std::string circuit::add(std::string_view symbol) {
         return impl_->add(symbol);
     }

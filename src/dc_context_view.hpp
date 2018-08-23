@@ -12,10 +12,6 @@ namespace circuitsim {
     class CIRCUITSIM_API dc_context_view final {
     public:
 
-        dc_context_view(dc_context_view &&) noexcept;
-
-        ~dc_context_view();
-
         void stamp_resistance(int n1, int n2, double r);
 
         void stamp_voltage(int pn, int nn, double v);
