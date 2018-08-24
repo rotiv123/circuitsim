@@ -33,6 +33,10 @@ namespace circuitsim {
             return get_port(*impl_, ix);
         }
 
+        bool can_stamp() const {
+            return circuitsim::can_stamp(*impl_);
+        }
+
         void stamp(dc_context_view &ctx) const {
             circuitsim::stamp(*impl_, ctx);
         }

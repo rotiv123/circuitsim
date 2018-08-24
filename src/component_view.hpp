@@ -27,6 +27,8 @@ namespace circuitsim {
 
         int port(unsigned ix) const;
 
+        bool can_stamp() const;
+
         void stamp(dc_context_view &) const;
 
     protected:

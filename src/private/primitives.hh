@@ -49,6 +49,11 @@ namespace circuitsim {
         std::visit([=](auto &x) { x.value(val); }, c);
     }
 
+    template<class Primitive>
+    bool can_stamp(const Primitive &c) {
+        return std::visit([&](const auto &x) { return x.can_stamp(); }, c);
+    }
+
     template <class Primitive>
     void stamp(const Primitive &c, dc_context_view &ctx) {
         std::visit([&](const auto &x) { return x.stamp(ctx); }, c);

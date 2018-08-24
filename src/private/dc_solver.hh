@@ -31,9 +31,13 @@ namespace circuitsim {
             }
             nodes_map[0] = 0;
             c.visit([&](const component_view &x) {
+
+                if (!x.can_stamp()) {
+                    return;
+                }
+
                 auto n1 = x.port(0);
                 auto n2 = x.port(1);
-
                 if (n1 == n2) {
                     return;
                 }
@@ -56,13 +60,12 @@ namespace circuitsim {
             c.visit([&](const component_view &x) {
                 auto n1 = x.port(0);
                 auto n2 = x.port(1);
-                if (n1 != n2) {
+                if (x.can_stamp() && n1 != n2) {
                     x.stamp(ctx_view);
                 }
             });
 
             auto mt = ctx.mat();
-            //print(mt);
             auto ok = circuitsim::solve(mt);
             update_datapoints(nodes_map, nodes, voltage_sources, mt);
 

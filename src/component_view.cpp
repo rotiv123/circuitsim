@@ -27,6 +27,10 @@ namespace circuitsim {
         return impl_->port(ix);
     }
 
+    bool component_view::can_stamp() const {
+        return impl_->can_stamp();
+    }
+
     void component_view::stamp(dc_context_view &ctx) const {
         impl_->stamp(ctx);
     }

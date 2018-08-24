@@ -22,6 +22,8 @@ namespace circuitsim {
 
         virtual int port(unsigned ix) const =0;
 
+        virtual bool can_stamp() const = 0;
+
         virtual void stamp(dc_context_view &) const =0;
     };
 

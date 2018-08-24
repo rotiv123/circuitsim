@@ -19,6 +19,7 @@ namespace circuitsim {
 
     template<>
     struct component_traits<resistor> {
+
         static constexpr std::string_view symbol() {
             return "R";
         }

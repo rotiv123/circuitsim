@@ -9,6 +9,7 @@
 #include <array>
 #include <algorithm>
 #include <string>
+#include <type_traits>
 #include "component_traits.hh"
 
 namespace circuitsim {
@@ -47,8 +48,12 @@ namespace circuitsim {
             return component_traits<Derived>::symbol();
         }
 
+        constexpr bool can_stamp() const {
+            return std::is_invocable_v<decltype(component_traits<Derived>::stamp), const Derived &, dc_context_view &>;
+        }
+
         void stamp(dc_context_view &ctx) const {
-            return component_traits<Derived>::stamp(*static_cast<const Derived *>(this), ctx);
+            component_traits<Derived>::stamp(*static_cast<const Derived *>(this), ctx);
         }
 
     private:
