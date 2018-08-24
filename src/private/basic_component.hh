@@ -9,7 +9,6 @@
 #include <array>
 #include <algorithm>
 #include <string>
-#include <type_traits>
 #include "component_traits.hh"
 
 namespace circuitsim {
@@ -19,8 +18,8 @@ namespace circuitsim {
     template<class Derived, std::size_t NPorts>
     struct basic_component {
         explicit basic_component(std::string name) noexcept
-                : name_{std::move(name)}, ports_{}, value_{component_traits<Derived>::default_value()} {
-            std::fill(std::begin(ports_), std::end(ports_), -1);
+                : name_{std::move(name)}, ports_{}, value_{default_value()} {
+            std::fill(std::begin(ports_), std::end(ports_), default_port_value());
         }
 
         std::string_view name() const {
@@ -37,7 +36,7 @@ namespace circuitsim {
         }
 
         int port(unsigned ix) const {
-            return ports_[ix];
+            return ix < NPorts ? ports_[ix] : default_port_value();
         }
 
         void port(unsigned ix, int val) {
@@ -49,7 +48,7 @@ namespace circuitsim {
         }
 
         constexpr bool can_stamp() const {
-            return std::is_invocable_v<decltype(component_traits<Derived>::stamp), const Derived &, dc_context_view &>;
+            return has_stamp_fn_v<Derived>;
         }
 
         void stamp(dc_context_view &ctx) const {
@@ -60,8 +59,15 @@ namespace circuitsim {
         std::string name_;
         std::array<int, NPorts> ports_;
         double value_;
-    };
 
+        constexpr static double default_value() {
+            return default_value_v<Derived>;
+        }
+
+        constexpr static int default_port_value() {
+            return default_port_value_v<Derived>;
+        }
+    };
 }
 
 
