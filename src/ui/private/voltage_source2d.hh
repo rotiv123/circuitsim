@@ -8,6 +8,7 @@
 
 #include "basic_component2d.hh"
 #include "../../private/voltage_source.hh"
+#include "../draw_context_view.hpp"
 
 namespace circuitsim {
     namespace ui {
@@ -21,7 +22,9 @@ namespace circuitsim {
 
     template<>
     struct component_traits<ui::voltage_source2d> : public component_traits<voltage_source> {
+        static void draw(ui::draw_context_view &ctx) {
 
+        }
     };
 }
 

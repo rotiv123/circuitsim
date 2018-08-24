@@ -10,7 +10,10 @@
 
 namespace circuitsim {
 
-    template <class Primitive, class Concept>
+    template<class Primitive>
+    void stamp(const Primitive &c, dc_context_view &ctx);
+
+    template<class Primitive, class Concept>
     struct basic_component_view : public Concept {
         explicit basic_component_view(const Primitive *impl) : impl_{impl} {}
 

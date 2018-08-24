@@ -5,14 +5,21 @@
 #ifndef CIRCUITSIM_BASIC_COMPONENT2D_HH
 #define CIRCUITSIM_BASIC_COMPONENT2D_HH
 
+#include <string>
 #include "../point2d.hpp"
+#include "../../private/component_traits.hh"
 
 namespace circuitsim::ui {
 
-    template <class Derived, class Base>
+    class draw_context_view;
+
+    template<class Derived, class Base>
     class basic_component2d : public Base {
     public:
-        using Base::Base;
+        explicit basic_component2d(std::string name)
+                : Base{std::move(name)}, position_{}, rotation_{} {
+
+        }
 
         const point2d &position() const {
             return position_;
@@ -22,8 +29,21 @@ namespace circuitsim::ui {
             position_ = std::move(val);
         }
 
+        int rotation() const {
+            return rotation_;
+        }
+
+        void rotation(int val) {
+            rotation_ = val;
+        }
+
+        void draw(draw_context_view &ctx) const {
+            return component_traits<Derived>::draw(ctx);
+        }
+
     private:
         point2d position_;
+        int rotation_;
     };
 
 }

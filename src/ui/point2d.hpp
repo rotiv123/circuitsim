@@ -9,7 +9,9 @@
 
 namespace circuitsim::ui {
 
-    using point2d = std::tuple<float, float>;
+    using point2d = std::tuple<int, int>;
+
+    using box2d = std::tuple<float, float>;
 
 }
 

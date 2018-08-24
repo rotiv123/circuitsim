@@ -11,6 +11,7 @@
 
 namespace circuitsim::ui {
 
+    class draw_context_view;
     using primitive2d = std::variant<resistor2d, voltage_source2d>;
 
     template<class T, typename ...Args>
@@ -26,6 +27,21 @@ namespace circuitsim::ui {
     template<class Primitive2d>
     void set_position(Primitive2d &c, point2d val) {
         std::visit([=](auto &x) { x.position(val); }, c);
+    }
+
+    template<class Primitive2d>
+    int get_rotation(const Primitive2d &c) {
+        return std::visit([](const auto &x) { return x.rotation(); }, c);
+    }
+
+    template<class Primitive2d>
+    void set_rotation(Primitive2d &c, int val) {
+        std::visit([=](auto &x) { x.rotation(val); }, c);
+    }
+
+    template<class Primitive2d>
+    void draw(const Primitive2d &c, draw_context_view &ctx) {
+        std::visit([&](const auto &x) { return x.draw(ctx); }, c);
     }
 
 }

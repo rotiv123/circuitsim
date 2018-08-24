@@ -14,6 +14,10 @@ namespace circuitsim::ui {
 
     struct component2d_view::concept : public component_view::concept {
         virtual const point2d &position() const = 0;
+
+        virtual int rotation() const = 0;
+
+        virtual void draw(draw_context_view &ctx) const = 0;
     };
 
     struct component2d_view_model : public basic_component2d_view<primitive2d, component2d_view::concept> {

@@ -14,4 +14,12 @@ namespace circuitsim::ui {
     const point2d &component2d_view::position() const {
         return reinterpret_cast<const concept *>(impl_)->position();
     }
+
+    int component2d_view::rotation() const {
+        return reinterpret_cast<const concept *>(impl_)->rotation();
+    }
+
+    void component2d_view::draw(draw_context_view &ctx) const {
+        return reinterpret_cast<const concept *>(impl_)->draw(ctx);
+    }
 }

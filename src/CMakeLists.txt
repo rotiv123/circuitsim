@@ -46,7 +46,14 @@ add_library(CIRCUITSIM SHARED
         ui/private/basic_component2d_view.hh
         ui/private/component2d_view.hh
         ui/private/voltage_source2d.hh
-        ui/point2d.hpp)
+        ui/point2d.hpp
+        ui/draw_context_view.cpp
+        ui/draw_context_view.hpp
+        ui/svg_painter.cpp
+        ui/svg_painter.hpp
+        ui/private/svg_painter.hh
+        ui/private/draw_context_view.hh
+        private/component_traits.hh)
 
 
 target_include_directories(CIRCUITSIM PUBLIC
@@ -68,6 +75,11 @@ set_target_properties (CIRCUITSIM PROPERTIES
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
         DESTINATION include/circuitsim
+        COMPONENT dev
+        FILES_MATCHING PATTERN "*.hpp")
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/ui
+        DESTINATION include/circuitsim/ui
         COMPONENT dev
         FILES_MATCHING PATTERN "*.hpp")
 

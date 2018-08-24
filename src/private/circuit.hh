@@ -30,7 +30,7 @@ namespace circuitsim {
         virtual void visit(const std::function<void(const component_view &)> &) const = 0;
     };
 
-    struct circuit::impl : public basic_circuit<component_factory::impl, circuit::concept> {
+    struct circuit::impl final : public basic_circuit<component_factory::impl, circuit::concept> {
         using base = basic_circuit<component_factory::impl, circuit::concept>;
 
         void visit(const std::function<void(const component_view &)> &f) const final {

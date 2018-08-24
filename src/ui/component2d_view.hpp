@@ -11,6 +11,8 @@
 
 namespace circuitsim::ui {
 
+    class draw_context_view;
+
     class CIRCUITSIM_API component2d_view : public component_view {
     public:
         struct CIRCUITSIM_INTERNAL concept;
@@ -18,6 +20,10 @@ namespace circuitsim::ui {
         CIRCUITSIM_INTERNAL explicit component2d_view(const concept *) noexcept;
 
         const point2d &position() const;
+
+        int rotation() const;
+
+        void draw(draw_context_view &) const;
     };
 
 }

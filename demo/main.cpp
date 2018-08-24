@@ -9,6 +9,7 @@
 #include <ui/circuit2d.hpp>
 #include <primitives.hpp>
 #include <dc_solver.hpp>
+#include <ui/svg_painter.hpp>
 
 int main() {
     std::cout << "circuitsim version: " << circuitsim_version() << std::endl;
@@ -18,7 +19,7 @@ int main() {
 
     circuit2d c{};
 
-    auto v1 = add_voltage_source(c);
+    auto v1 = c.add("V");
     auto v2 = add_voltage_source(c);
     auto r1 = add_resistor(c);
     auto r2 = add_resistor(c);
@@ -47,9 +48,14 @@ int main() {
         auto n2 = x.port(1);
         std::cout << x.name() << " " << n1 << " " << n2 << " " << x.value() << std::endl;
     });
+    std::cout << std::endl;
+
+    svg_painter painter;
+    std::cout << "drawing..." << std::endl;
+    std::cout << painter.draw(c) << std::endl;
 
     dc_solver dc;
-    std::cout << std::endl << "dc solving..." << std::endl;
+    std::cout << "dc solving..." << std::endl;
     if (!dc.solve(c)) {
         std::cout << "ups... :(" << std::endl;
     } else {

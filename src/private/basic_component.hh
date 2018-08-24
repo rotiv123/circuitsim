@@ -9,17 +9,11 @@
 #include <array>
 #include <algorithm>
 #include <string>
+#include "component_traits.hh"
 
 namespace circuitsim {
 
     class dc_context_view;
-
-    template<class Component>
-    struct component_traits {
-        static constexpr std::string_view symbol() {
-            return Component::symbol();
-        }
-    };
 
     template<class Derived, std::size_t NPorts>
     struct basic_component {

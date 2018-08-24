@@ -17,7 +17,7 @@ namespace circuitsim::ui {
         virtual void visit(const std::function<void(const component2d_view &)> &f) const = 0;
     };
 
-    struct circuit2d::impl : public basic_circuit2d<component2d_factory::impl, circuit2d::concept> {
+    struct circuit2d::impl final : public basic_circuit2d<component2d_factory::impl, circuit2d::concept> {
         using base = basic_circuit2d<component2d_factory::impl, circuit2d::concept>;
 
         void visit(const std::function<void(const component2d_view &)> &f) const final {
