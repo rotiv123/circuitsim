@@ -6,13 +6,15 @@
 #define CIRCUITSIM_PRIMITIVES2D_HH
 
 #include <variant>
+#include "ground2d.hh"
 #include "resistor2d.hh"
 #include "voltage_source2d.hh"
 
 namespace circuitsim::ui {
 
     class draw_context_view;
-    using primitive2d = std::variant<resistor2d, voltage_source2d>;
+
+    using primitive2d = std::variant<ground2d, resistor2d, voltage_source2d>;
 
     template<class T, typename ...Args>
     primitive2d make_primitive2d(Args ...args) {

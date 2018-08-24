@@ -7,7 +7,7 @@
 
 #include <string>
 #include "../point2d.hpp"
-#include "../../private/component_traits.hh"
+#include "../../private/basic_component.hh"
 
 namespace circuitsim::ui {
 

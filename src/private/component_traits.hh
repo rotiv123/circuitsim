@@ -19,40 +19,55 @@ namespace circuitsim {
 
     namespace detail {
         template<typename U>
-        static constexpr int default_port_value(check<int (*)(), &U::default_port_value> *) {
+        constexpr int default_port_value(check<int (*)(), &U::default_port_value> *) {
             return U::default_port_value();
         }
 
         template<typename U>
-        static constexpr int default_port_value(...) {
+        constexpr int default_port_value(...) {
             return -1;
         }
 
         template<typename U>
-        static constexpr double default_value(check<double (*)(), &U::default_value> *) {
+        constexpr double default_value(check<double (*)(), &U::default_value> *) {
             return U::default_value();
         }
 
         template<typename U>
-        static constexpr double default_value(...) {
+        constexpr double default_value(...) {
             return 0;
         }
 
         template<typename Component, class Traits>
-        static std::true_type has_stamp(check<void (*)(const Component &, dc_context_view &), &Traits::stamp> *);
+        std::true_type has_stamp(check<void (*)(const Component &, dc_context_view &), &Traits::stamp> *);
 
         template<typename Component, class Traits>
-        static std::false_type has_stamp(...);
+        std::false_type has_stamp(...);
+
+        template<typename Component, class Traits>
+        void stamp(const Component &c, dc_context_view &ctx,
+                   check<void (*)(const Component &, dc_context_view &), &Traits::stamp> *) {
+            Traits::stamp(c, ctx);
+        }
+
+        template<typename Component, class Traits>
+        void stamp(const Component &c, dc_context_view &ctx, ...) {
+        }
     };
 
     template<class Component, class Traits = component_traits<Component>>
-    inline static constexpr int default_port_value_v = detail::default_port_value<Traits>(nullptr);
+    inline static constexpr int default_port_value = detail::default_port_value<Traits>(nullptr);
 
     template<class Component, class Traits = component_traits<Component>>
-    inline constexpr double default_value_v = detail::default_value<Traits>(nullptr);
+    inline constexpr double default_value = detail::default_value<Traits>(nullptr);
 
     template<class Component, class Traits = component_traits<Component>>
-    inline constexpr bool has_stamp_fn_v = decltype(detail::has_stamp<Component, Traits>(nullptr))::value;
+    inline constexpr bool has_stamp_fn = decltype(detail::has_stamp<Component, Traits>(nullptr))::value;
+
+    template<class Component, class Traits = component_traits<Component>>
+    constexpr void do_stamp(const Component &c, dc_context_view &ctx) {
+        detail::stamp<Component, Traits>(c, ctx, nullptr);
+    }
 }
 
 

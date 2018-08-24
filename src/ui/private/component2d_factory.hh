@@ -22,6 +22,9 @@ namespace circuitsim::ui {
         using component_type = primitive2d;
 
         impl() noexcept : blue_prints_{} {
+            blue_prints_[component_traits<ground2d>::symbol()] = [](std::string &&name) {
+                return make_primitive2d<ground2d>(std::move(name));
+            };
             blue_prints_[component_traits<resistor2d>::symbol()] = [](std::string &&name) {
                 return make_primitive2d<resistor2d>(std::move(name));
             };

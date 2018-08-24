@@ -20,6 +20,10 @@ namespace circuitsim::ui {
     struct circuit2d::impl final : public basic_circuit2d<component2d_factory::impl, circuit2d::concept> {
         using base = basic_circuit2d<component2d_factory::impl, circuit2d::concept>;
 
+        impl() noexcept : base{} {
+            add("0");
+        }
+
         void visit(const std::function<void(const component2d_view &)> &f) const final {
             base::visit([&](const auto &x) {
                 auto cvi = component2d_view_model{&x};
