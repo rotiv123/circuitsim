@@ -29,6 +29,10 @@ namespace circuitsim::ui {
         reinterpret_cast<concept *>(impl_.get())->move_to(c, dx, dy);
     }
 
+    void circuit2d::ground_move_to(int dx, int dy) {
+        reinterpret_cast<concept *>(impl_.get())->ground_move_to(dx, dy);
+    }
+
     void circuit2d::rotate(std::string_view c, int r) {
         reinterpret_cast<concept *>(impl_.get())->rotate(c, r);
     }

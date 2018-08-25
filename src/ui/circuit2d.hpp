@@ -25,6 +25,8 @@ namespace circuitsim::ui {
 
         void move_to(std::string_view, int dx, int dy);
 
+        void ground_move_to(int dx, int dy);
+
         void rotate(std::string_view, int r);
 
     protected:

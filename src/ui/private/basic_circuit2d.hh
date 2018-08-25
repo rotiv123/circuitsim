@@ -23,6 +23,10 @@ namespace circuitsim::ui {
             set_position(source, {x + dx, y + dy});
         }
 
+        void ground_move_to(int dx, int dy) override {
+            move_to("*Ground*1", dx, dy);
+        }
+
         void rotate(std::string_view c, int r) override {
             auto &source = base::get(c);
 

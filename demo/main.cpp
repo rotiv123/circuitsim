@@ -83,6 +83,8 @@ int main() {
     auto r1 = add_resistor(c, 200, {0, 3});
     auto r2 = add_resistor(c, 200, {3, 0}, -90);
 
+    c.ground_move_to(0, -4);
+
     c.ground(v1, 1);
     c.connect(v1, 0, r1, 0);
     c.connect(r1, 1, r2, 0);

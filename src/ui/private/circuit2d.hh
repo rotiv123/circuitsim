@@ -19,6 +19,8 @@ namespace circuitsim::ui {
         virtual void move_to(std::string_view c, int dx, int dy) = 0;
 
         virtual void rotate(std::string_view, int r) = 0;
+
+        virtual void ground_move_to(int dx, int dy) = 0;
     };
 
     struct circuit2d::impl final : public basic_circuit2d<component2d_factory::impl, circuit2d::concept> {

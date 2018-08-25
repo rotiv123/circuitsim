@@ -30,7 +30,7 @@ namespace circuitsim::ui {
 
                     auto[x, y] = it;
                     auto rot = c.rotation();
-                    rot = rot > 0 ? rot % 360 : (360 - (rot % 360));
+                    rot = rot > 0 ? rot % 360 : (360 + (rot % 360));
                     switch (rot) {
                         case 90:
                             std::swap(x, y);
