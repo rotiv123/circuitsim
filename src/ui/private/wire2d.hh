@@ -14,9 +14,11 @@ namespace circuitsim {
 	namespace ui {
 
 		class wire2d final
-			: public drawable<wire2d, basic_component < wire2d, 2>> {
+				: public drawable<wire2d, basic_component < wire2d, 0>>
+
+	{
 		public:
-			using base = drawable <wire2d, basic_component<wire2d, 2>>;
+		using base = drawable <wire2d, basic_component<wire2d, 0>>;
 			using base::base;
 
 			const point2d &end1() const {

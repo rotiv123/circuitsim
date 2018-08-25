@@ -8,17 +8,19 @@
 
 #include "drawable.hh"
 #include "with_position.hh"
+#include "rotatable.hh"
 #include "../../private/basic_voltage_source.hh"
 #include "draw_context_view.hh"
 
 namespace circuitsim::ui {
 
     template<class Derived>
-    class basic_voltage_source2d : public with_position<Derived, drawable < Derived, basic_voltage_source < Derived>>
+    class basic_voltage_source2d : public rotatable<Derived,
+            with_position < Derived, drawable < Derived, basic_voltage_source < Derived>>
 
-    > {
+    >> {
     public:
-    using base = with_position <Derived, drawable<Derived, basic_voltage_source < Derived>>>;
+    using base = rotatable <Derived, with_position<Derived, drawable < Derived, basic_voltage_source < Derived>>>>;
     using base::base;
 };
 

@@ -12,6 +12,9 @@
 #include <dc_solver.hpp>
 #include <ui/svg_painter.hpp>
 
+#include <private/primitives.hh>
+#include <ui/private/primitives2d.hh>
+
 void test1() {
     std::cout << "circuitsim version: " << circuitsim_version() << std::endl;
 
@@ -90,8 +93,23 @@ void test2() {
     std::cout << painter.draw(c) << std::endl;
 }
 
+void test3() {
+    using namespace circuitsim;
+    using namespace circuitsim::ui;
+
+    std::cout << "sizeof(primitive) " << sizeof(primitive) << " bytes" << std::endl;
+    std::cout << "sizeof(resistor) " << sizeof(resistor) << " bytes" << std::endl;
+    std::cout << "sizeof(voltage_source) " << sizeof(voltage_source) << " bytes" << std::endl;
+    std::cout << std::endl;
+    std::cout << "sizeof(primitive2d) " << sizeof(primitive2d) << " bytes" << std::endl;
+    std::cout << "sizeof(ground2d) " << sizeof(ground2d) << " bytes" << std::endl;
+    std::cout << "sizeof(wire2d) " << sizeof(wire2d) << " bytes" << std::endl;
+    std::cout << "sizeof(resistor2d) " << sizeof(resistor2d) << " bytes" << std::endl;
+    std::cout << "sizeof(voltage_source2d) " << sizeof(voltage_source2d) << " bytes" << std::endl;
+}
+
 int main() {
 
-    test2();
+    test3();
     return 0;
 }
