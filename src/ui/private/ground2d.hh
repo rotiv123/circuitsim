@@ -21,7 +21,7 @@ namespace circuitsim {
     struct component_traits<ui::ground2d> {
 
         static constexpr std::string_view symbol() {
-            return "0";
+            return "*Ground*";
         }
 
         static constexpr int default_port_value() {
@@ -30,10 +30,6 @@ namespace circuitsim {
 
         static constexpr std::initializer_list<ui::point2d> ports() {
             return {{0, 1}};
-        }
-
-        static constexpr ui::box2d bbox() {
-            return {1.4f, 2};
         }
 
         static void draw(ui::draw_context_view &ctx) {

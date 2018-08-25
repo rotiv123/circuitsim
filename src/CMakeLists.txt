@@ -54,7 +54,7 @@ add_library(CIRCUITSIM SHARED
         ui/private/svg_painter.hh
         ui/private/draw_context_view.hh
         private/component_traits.hh
-        ui/private/ground2d.hh)
+        ui/private/ground2d.hh ui/private/wire2d.hh)
 
 
 target_include_directories(CIRCUITSIM PUBLIC

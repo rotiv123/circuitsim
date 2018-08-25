@@ -25,6 +25,9 @@ namespace circuitsim::ui {
             blue_prints_[component_traits<ground2d>::symbol()] = [](std::string &&name) {
                 return make_primitive2d<ground2d>(std::move(name));
             };
+            blue_prints_[component_traits<wire2d>::symbol()] = [](std::string &&name) {
+                return make_primitive2d<wire2d>(std::move(name));
+            };
             blue_prints_[component_traits<resistor2d>::symbol()] = [](std::string &&name) {
                 return make_primitive2d<resistor2d>(std::move(name));
             };

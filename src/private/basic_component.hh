@@ -43,7 +43,7 @@ namespace circuitsim {
             ports_[ix] = val;
         }
 
-        std::string_view symbol() const {
+        static constexpr std::string_view symbol() {
             return component_traits<Derived>::symbol();
         }
 

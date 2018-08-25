@@ -21,7 +21,10 @@ namespace circuitsim {
 
     template <class Primitive>
     std::string_view get_symbol(const Primitive &c) {
-        return std::visit([](const auto &x) { return x.symbol(); }, c);
+        return std::visit([](const auto &x) {
+            using T = std::decay_t<decltype(x)>;
+            return T::symbol();
+        }, c);
     }
 
     template <class Primitive>

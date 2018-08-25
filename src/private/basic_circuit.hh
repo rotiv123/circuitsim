@@ -33,7 +33,7 @@ namespace circuitsim {
             return components_;
         }
 
-        std::string add(std::string_view symbol) override {
+        virtual std::string add(std::string_view symbol) {
             auto name = std::string{symbol} + std::to_string(++names_[symbol]);
             auto c = factory_.create(symbol, std::move(name));
             check_add(c);
@@ -41,7 +41,7 @@ namespace circuitsim {
             return std::string{get_name(components_.back())};
         }
 
-        void remove(std::string_view src) override {
+        virtual void remove(std::string_view src) {
             components_.erase(std::remove_if(std::begin(components_),
                                              std::end(components_),
                                              [&](const auto &x) {
@@ -50,7 +50,7 @@ namespace circuitsim {
                               std::end(components_));
         }
 
-        void connect(std::string_view src, unsigned srcp, std::string_view dst, unsigned dstp) override {
+        virtual void connect(std::string_view src, unsigned srcp, std::string_view dst, unsigned dstp) {
             auto &source = get(src);
             auto &destination = get(dst);
 
@@ -61,13 +61,13 @@ namespace circuitsim {
             set_port(source, srcp, get_port(destination, dstp));
         }
 
-        void ground(std::string_view src, unsigned srcp) override {
+        virtual void ground(std::string_view src, unsigned srcp) {
             auto &source = get(src);
 
             set_port(source, srcp, 0);
         }
 
-        void value(std::string_view src, double val) override {
+        virtual void value(std::string_view src, double val) {
             auto &source = get(src);
 
             set_value(source, val);
@@ -80,16 +80,11 @@ namespace circuitsim {
             }
         }
 
-        std::size_t nodes() const override {
+        virtual std::size_t nodes() const {
             return (std::size_t) max_node_;
         }
 
-    private:
-        std::unordered_map<std::string_view, int> names_;
-        components_type components_;
-        component_factory_type factory_;
-        int max_node_;
-
+    protected:
         void check_add(const component_type &c) const {
             assert(std::all_of(std::begin(components_),
                                std::end(components_),
@@ -108,6 +103,12 @@ namespace circuitsim {
             assert(it != std::end(components_));
             return *it;
         }
+
+        //private:
+        std::unordered_map<std::string_view, int> names_;
+        components_type components_;
+        component_factory_type factory_;
+        int max_node_;
     };
 }
 

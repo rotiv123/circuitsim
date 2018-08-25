@@ -29,10 +29,6 @@ namespace circuitsim {
                     {2,  0}};
         }
 
-        static constexpr ui::box2d bbox() {
-            return {2, 0.6f};
-        }
-
         static void draw(ui::draw_context_view &ctx) {
             ctx.line(-2, 0, -1.4f, 0);
             ctx.rect(-1.4f, -0.3f, 2.8f, 0.6f);

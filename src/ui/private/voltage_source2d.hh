@@ -22,6 +22,11 @@ namespace circuitsim {
 
     template<>
     struct component_traits<ui::voltage_source2d> : public component_traits<voltage_source> {
+
+        static constexpr std::initializer_list<ui::point2d> ports() {
+            return {};
+        }
+
         static void draw(ui::draw_context_view &ctx) {
 
         }

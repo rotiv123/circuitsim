@@ -21,7 +21,7 @@ namespace circuitsim::ui {
         using base = basic_circuit2d<component2d_factory::impl, circuit2d::concept>;
 
         impl() noexcept : base{} {
-            add("0");
+            add("*Ground*");
         }
 
         void visit(const std::function<void(const component2d_view &)> &f) const final {
