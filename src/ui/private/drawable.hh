@@ -1,0 +1,30 @@
+//
+// Created by vitor on 22-08-2018.
+//
+
+#ifndef CIRCUITSIM_BASIC_COMPONENT2D_HH
+#define CIRCUITSIM_BASIC_COMPONENT2D_HH
+
+#include <string>
+#include "../../private/component_traits.hh"
+
+namespace circuitsim::ui {
+
+    class draw_context_view;
+
+    template<class Derived, class Base>
+    class drawable : public Base {
+    public:
+        explicit drawable(std::string name)
+                : Base{std::move(name)} {
+        }
+
+        void draw(draw_context_view &ctx) const {
+            return component_traits<Derived>::draw(*static_cast<const Derived *>(this), ctx);
+        }
+    };
+
+}
+
+
+#endif //CIRCUITSIM_BASIC_COMPONENT2D_HH

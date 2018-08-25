@@ -6,36 +6,20 @@
 #define CIRCUITSIM_VOLTAGE_SOURCE2D_HH
 
 
-#include "basic_component2d.hh"
-#include "../../private/voltage_source.hh"
-#include "../draw_context_view.hpp"
+#include "basic_voltage_source2d.hh"
 
 namespace circuitsim {
     namespace ui {
 
-        class voltage_source2d : public basic_component2d<voltage_source2d, voltage_source> {
+        class voltage_source2d final : public basic_voltage_source2d<voltage_source2d> {
         public:
-            using base = basic_component2d<voltage_source2d, voltage_source>;
+            using base = basic_voltage_source2d<voltage_source2d>;
             using base::base;
         };
     }
 
     template<>
-    struct component_traits<ui::voltage_source2d> : public component_traits<voltage_source> {
-
-        static constexpr std::initializer_list<ui::point2d> ports() {
-            return {{0, 2},
-                    {0, -2}};
-        }
-
-        static void draw(const ui::voltage_source2d &, ui::draw_context_view &ctx) {
-            ctx.circle(0, 0, 1.2f);
-            ctx.line(0, 1, 0, 0.3f);
-            ctx.line(-0.35f, 0.65f, 0.35f, 0.65f);
-            ctx.line(-0.35f, -0.65f, 0.35f, -0.65f);
-            ctx.line(0, 2, 0, 1.2f);
-            ctx.line(0, -2, 0, -1.2f);
-        }
+    struct component_traits<ui::voltage_source2d> final : public ui::voltage_source2d_traits<ui::voltage_source2d> {
     };
 }
 

@@ -6,16 +6,18 @@
 #define CIRCUITSIM_WIRE2D_HH
 
 
-#include "basic_component2d.hh"
+#include "drawable.hh"
 #include "draw_context_view.hh"
 
 namespace circuitsim {
     namespace ui {
-        class wire2d : public basic_component2d<wire2d, basic_component < wire2d, 2>>
+
+        class wire2d final
+                : public drawable<wire2d, basic_component < wire2d, 2>>
 
     {
         public:
-        using base = basic_component2d <wire2d, basic_component<wire2d, 2>>;
+        using base = drawable <wire2d, basic_component<wire2d, 2>>;
         using base::base;
 
         const point2d &end1() const {
@@ -26,12 +28,16 @@ namespace circuitsim {
             return end2_;
         }
 
-        void end1(point2d val) {
-            end1_ = val;
+        friend point2d position(const wire2d &x, unsigned ix) {
+            return ix == 0 ? x.end1_ : x.end2_;
         }
 
-        void end2(point2d val) {
-            end2_ = val;
+        friend void position(wire2d &x, unsigned ix, point2d val) {
+            if (ix == 0) {
+                x.end1_ = val;
+            } else {
+                x.end2_ = val;
+            }
         }
 
         private:
@@ -41,19 +47,7 @@ namespace circuitsim {
 }
 
 template<>
-struct component_traits<ui::wire2d> {
-
-    static ui::point2d position(const ui::wire2d &x, unsigned ix) {
-        return ix == 0 ? x.end1() : x.end2();
-    }
-
-    static void position(ui::wire2d &x, unsigned ix, ui::point2d val) {
-        if (ix == 0) {
-            x.end1(val);
-        } else {
-            x.end2(val);
-        }
-    }
+struct component_traits<ui::wire2d> final {
 
     static constexpr std::string_view symbol() {
         return "*Wire*";

@@ -5,20 +5,23 @@
 #ifndef CIRCUITSIM_GOUND2D_HH
 #define CIRCUITSIM_GOUND2D_HH
 
-#include "basic_component2d.hh"
+#include "../point2d.hpp"
+#include "../../private/basic_component.hh"
+#include "drawable.hh"
+#include "with_position.hh"
 #include "draw_context_view.hh"
 
 namespace circuitsim {
     namespace ui {
-        class ground2d : public basic_component2d<ground2d, basic_component<ground2d, 1>> {
+        class ground2d final : public with_position<ground2d, drawable<ground2d, basic_component<ground2d, 1>>> {
         public:
-            using base = basic_component2d<ground2d, basic_component<ground2d, 1>>;
+            using base = with_position<ground2d, drawable<ground2d, basic_component<ground2d, 1>>>;
             using base::base;
         };
     }
 
     template<>
-    struct component_traits<ui::ground2d> {
+    struct component_traits<ui::ground2d> final {
 
         static constexpr std::string_view symbol() {
             return "*Ground*";

@@ -5,32 +5,18 @@
 #ifndef PROJECT_RESISTOR_HH
 #define PROJECT_RESISTOR_HH
 
-#include <string_view>
-#include "basic_component.hh"
-#include "../dc_context_view.hpp"
+#include "basic_resistor.hh"
 
 namespace circuitsim {
 
-    class resistor : public basic_component<resistor, 2> {
+    class resistor final : public basic_resistor<resistor> {
     public:
-        using base = basic_component<resistor, 2>;
+        using base = basic_resistor<resistor>;
         using base::base;
     };
 
     template<>
-    struct component_traits<resistor> {
-
-        static constexpr std::string_view symbol() {
-            return "R";
-        }
-
-        static constexpr double default_value() {
-            return 100;
-        }
-
-        static void stamp(const resistor &x, dc_context_view &ctx) {
-            ctx.stamp_resistance(x.port(0), x.port(1), x.value());
-        }
+    struct component_traits<resistor> final : resistor_traits<resistor> {
     };
 
 }

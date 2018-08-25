@@ -24,32 +24,32 @@ namespace circuitsim::ui {
 
     template<class Primitive2d>
     const point2d &get_position(const Primitive2d &c) {
-        return std::visit([](const auto &x) -> const auto & { return x.position(); }, c);
+        return std::visit([](const auto &x) -> const auto & { return position(x); }, c);
     }
 
     template<class Primitive2d>
     void set_position(Primitive2d &c, point2d val) {
-        std::visit([=](auto &x) { x.position(val); }, c);
+        std::visit([=](auto &x) { position(x, val); }, c);
     }
 
     template<class Primitive2d>
     point2d get_position(const Primitive2d &c, unsigned ix) {
-        return std::visit([=](const auto &x) -> auto { return x.position(ix); }, c);
+        return std::visit([=](const auto &x) -> auto { return position(x, ix); }, c);
     }
 
     template<class Primitive2d>
     void set_position(Primitive2d &c, unsigned ix, point2d val) {
-        std::visit([=](auto &x) { x.position(ix, val); }, c);
+        std::visit([=](auto &x) { position(x, ix, val); }, c);
     }
 
     template<class Primitive2d>
     int get_rotation(const Primitive2d &c) {
-        return std::visit([](const auto &x) { return x.rotation(); }, c);
+        return std::visit([](const auto &x) { return rotation(x); }, c);
     }
 
     template<class Primitive2d>
     void set_rotation(Primitive2d &c, int val) {
-        std::visit([=](auto &x) { x.rotation(val); }, c);
+        std::visit([=](auto &x) { rotation(x, val); }, c);
     }
 
     template<class Primitive2d>

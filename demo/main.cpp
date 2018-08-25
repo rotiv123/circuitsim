@@ -51,10 +51,6 @@ void test1() {
     });
     std::cout << std::endl;
 
-    svg_painter painter;
-    std::cout << "drawing..." << std::endl;
-    std::cout << painter.draw(c) << std::endl;
-
     dc_solver dc;
     std::cout << "dc solving..." << std::endl;
     if (!dc.solve(c)) {
@@ -73,7 +69,7 @@ void test1() {
     }
 }
 
-int main() {
+void test2() {
     using namespace circuitsim;
     using namespace circuitsim::ui;
 
@@ -92,6 +88,10 @@ int main() {
 
     svg_painter painter;
     std::cout << painter.draw(c) << std::endl;
+}
 
+int main() {
+
+    test2();
     return 0;
 }

@@ -18,21 +18,12 @@ namespace circuitsim {
     template<class Derived, std::size_t NPorts>
     struct basic_component {
         explicit basic_component(std::string name) noexcept
-                : name_{std::move(name)}, ports_{}, value_{default_value<Derived>} {
+                : name_{std::move(name)}, ports_{} {
             std::fill(std::begin(ports_), std::end(ports_), default_port_value<Derived>);
         }
 
         std::string_view name() const {
             return name_;
-        }
-
-        double value() const {
-            return value_;
-        }
-
-        void value(double val) {
-            assert(val != 0);
-            value_ = val;
         }
 
         int port(unsigned ix) const {
@@ -58,7 +49,6 @@ namespace circuitsim {
     private:
         std::string name_;
         std::array<int, NPorts> ports_;
-        double value_;
     };
 }
 

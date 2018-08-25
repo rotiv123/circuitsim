@@ -5,30 +5,18 @@
 #ifndef CIRCUITSIM_VOLTAGE_SOURCE_HH
 #define CIRCUITSIM_VOLTAGE_SOURCE_HH
 
-#include "basic_component.hh"
-#include "../dc_context_view.hpp"
+#include "basic_voltage_source.hh"
 
 namespace circuitsim {
 
-    class voltage_source : public basic_component<voltage_source, 2> {
+    class voltage_source final : public basic_voltage_source<voltage_source> {
     public:
-        using base = basic_component<voltage_source, 2>;
+        using base = basic_voltage_source<voltage_source>;
         using base::base;
     };
 
     template<>
-    struct component_traits<voltage_source> {
-        static constexpr std::string_view symbol() {
-            return "V";
-        }
-
-        static constexpr double default_value() {
-            return 5;
-        }
-
-        static void stamp(const voltage_source &x, dc_context_view &ctx) {
-            ctx.stamp_voltage(x.port(0), x.port(1), x.value());
-        }
+    struct component_traits<voltage_source> final : public voltage_source_traits<voltage_source> {
     };
 
 }

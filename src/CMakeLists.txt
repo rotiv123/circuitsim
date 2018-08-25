@@ -30,7 +30,7 @@ add_library(CIRCUITSIM SHARED
         private/dc_context.hh
         ui/circuit2d.cpp
         ui/circuit2d.hpp
-        ui/private/basic_component2d.hh
+        ui/private/drawable.hh
         ui/private/resistor2d.hh
         ui/private/primitives2d.hh
         ui/private/component2d_factory.hh
@@ -54,7 +54,17 @@ add_library(CIRCUITSIM SHARED
         ui/private/svg_painter.hh
         ui/private/draw_context_view.hh
         private/component_traits.hh
-        ui/private/ground2d.hh ui/private/wire2d.hh ui/primitives2d.cpp ui/primitives2d.hpp)
+        ui/private/ground2d.hh
+        ui/private/wire2d.hh
+        ui/primitives2d.cpp
+        ui/primitives2d.hpp
+        private/component_with_value.hh
+        private/basic_resistor.hh
+        private/basic_voltage_source.hh
+        ui/private/basic_resistor2d.hh
+        ui/private/basic_voltage_source2d.hh
+        ui/private/with_position.hh
+        ui/private/rotatable.hh)
 
 
 target_include_directories(CIRCUITSIM PUBLIC
