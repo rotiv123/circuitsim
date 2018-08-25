@@ -18,4 +18,8 @@ namespace circuitsim::ui {
     void draw_context_view::rect(float x, float y, float w, float h) {
         impl_->rect(x, y, w, h);
     }
+
+    void draw_context_view::circle(float cx, float cy, float r) {
+        impl_->circle(cx, cy, r);
+    }
 }

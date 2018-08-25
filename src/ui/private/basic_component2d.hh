@@ -28,8 +28,23 @@ namespace circuitsim::ui {
             for (auto it : list) {
                 if (i++ == ix) {
 
-                    // TODO take into account the rotation
                     auto[x, y] = it;
+                    auto rot = c.rotation();
+                    rot = rot > 0 ? rot % 360 : (360 - (rot % 360));
+                    switch (rot) {
+                        case 90:
+                            std::swap(x, y);
+                            break;
+                        case 270:
+                            std::swap(x, y);
+                            y *= -1;
+                            break;
+                        case 180:
+                            x *= -1;
+                            break;
+                        default:
+                            break;
+                    }
 
                     auto[px, py] = c.position();
                     return {px + x, py + y};
@@ -83,7 +98,7 @@ namespace circuitsim::ui {
         }
 
         void draw(draw_context_view &ctx) const {
-            return component_traits<Derived>::draw(ctx);
+            return component_traits<Derived>::draw(*static_cast<const Derived *>(this), ctx);
         }
 
     private:

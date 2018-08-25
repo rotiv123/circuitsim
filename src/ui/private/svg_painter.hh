@@ -22,15 +22,16 @@ namespace circuitsim::ui {
                     << std::endl;
         }
 
-        void start_g() {
-            result_ << R"#( <g transform="translate(0,0) rotate(0)>)#"
+        void start_g(point2d p, int r) {
+            auto[x, y] = p;
+            result_ << " <g transform=\"translate(" << x << "," << y << ") rotate(" << r << ")\">"
                     << std::endl;
         }
 
         void line(float x1, float y1, float x2, float y2) final {
             result_ << "  <line x1=\"" << x1 << "\""
-                    << " x2=\"" << x2 << "\""
                     << " y1=\"" << y1 << "\""
+                    << " x2=\"" << x2 << "\""
                     << " y2=\"" << y2 << "\" />"
                     << std::endl;
         }
@@ -40,6 +41,13 @@ namespace circuitsim::ui {
                     << " y=\"" << y << "\""
                     << " width=\"" << w << "\""
                     << " height=\"" << h << "\" />"
+                    << std::endl;
+        }
+
+        void circle(float cx, float cy, float r) final {
+            result_ << "  <circle cx=\"" << cx << "\""
+                    << " cy=\"" << cy << "\""
+                    << " r=\"" << r << "\" />"
                     << std::endl;
         }
 
@@ -63,7 +71,7 @@ namespace circuitsim::ui {
             svg_context_view_model ctx{800, 600};
             draw_context_view ctx_view{&ctx};
             c.visit([&](const component2d_view &x) {
-                ctx.start_g();
+                ctx.start_g(x.position(), x.rotation());
                 x.draw(ctx_view);
                 ctx.end_g();
             });

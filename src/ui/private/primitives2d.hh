@@ -28,6 +28,11 @@ namespace circuitsim::ui {
     }
 
     template<class Primitive2d>
+    void set_position(Primitive2d &c, point2d val) {
+        std::visit([=](auto &x) { x.position(val); }, c);
+    }
+
+    template<class Primitive2d>
     point2d get_position(const Primitive2d &c, unsigned ix) {
         return std::visit([=](const auto &x) -> auto { return x.position(ix); }, c);
     }

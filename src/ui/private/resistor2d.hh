@@ -29,7 +29,7 @@ namespace circuitsim {
                     {2,  0}};
         }
 
-        static void draw(ui::draw_context_view &ctx) {
+        static void draw(const ui::resistor2d &, ui::draw_context_view &ctx) {
             ctx.line(-2, 0, -1.4f, 0);
             ctx.rect(-1.4f, -0.3f, 2.8f, 0.6f);
             ctx.line(1.4f, 0, 2, 0);

@@ -11,8 +11,7 @@
 
 namespace circuitsim {
     namespace ui {
-        class wire2d
-                : public basic_component2d<wire2d, basic_component < wire2d, 2>>
+        class wire2d : public basic_component2d<wire2d, basic_component < wire2d, 2>>
 
     {
         public:
@@ -32,7 +31,7 @@ namespace circuitsim {
         }
 
         void end2(point2d val) {
-            end1_ = val;
+            end2_ = val;
         }
 
         private:
@@ -60,8 +59,10 @@ struct component_traits<ui::wire2d> {
         return "*Wire*";
     }
 
-    static void draw(ui::draw_context_view &ctx) {
-
+    static void draw(const ui::wire2d &src, ui::draw_context_view &ctx) {
+        auto[x1, y1] = src.end1();
+        auto[x2, y2] = src.end2();
+        ctx.line(x1, y1, x2, y2);
     }
 };
 }

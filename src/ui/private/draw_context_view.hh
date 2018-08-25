@@ -15,6 +15,8 @@ namespace circuitsim::ui {
         virtual void line(float x1, float y1, float x2, float y2) = 0;
 
         virtual void rect(float x, float y, float w, float h) = 0;
+
+        virtual void circle(float cx, float cy, float r) = 0;
     };
 
 }

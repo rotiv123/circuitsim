@@ -20,6 +20,8 @@ namespace circuitsim::ui {
 
         void rect(float x, float y, float w, float h);
 
+        void circle(float cx, float cy, float r);
+
     private:
 
         concept *impl_;

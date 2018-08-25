@@ -8,10 +8,11 @@
 #include <circuit.hpp>
 #include <ui/circuit2d.hpp>
 #include <primitives.hpp>
+#include <ui/primitives2d.hpp>
 #include <dc_solver.hpp>
 #include <ui/svg_painter.hpp>
 
-int main() {
+void test1() {
     std::cout << "circuitsim version: " << circuitsim_version() << std::endl;
 
     using namespace circuitsim;
@@ -70,6 +71,25 @@ int main() {
             }, dp);
         });
     }
+}
+
+int main() {
+    using namespace circuitsim;
+    using namespace circuitsim::ui;
+
+    circuit2d c{};
+
+    auto v1 = add_voltage_source(c, 9, {-3, 0});
+    auto r1 = add_resistor(c, 200, {0, 3});
+    auto r2 = add_resistor(c, 200, {3, 0}, -90);
+
+    c.ground(v1, 1);
+    c.connect(v1, 0, r1, 0);
+    c.connect(r1, 1, r2, 0);
+    c.ground(r2, 1);
+
+    svg_painter painter;
+    std::cout << painter.draw(c) << std::endl;
 
     return 0;
 }

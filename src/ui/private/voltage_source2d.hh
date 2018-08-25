@@ -24,11 +24,17 @@ namespace circuitsim {
     struct component_traits<ui::voltage_source2d> : public component_traits<voltage_source> {
 
         static constexpr std::initializer_list<ui::point2d> ports() {
-            return {};
+            return {{0, 2},
+                    {0, -2}};
         }
 
-        static void draw(ui::draw_context_view &ctx) {
-
+        static void draw(const ui::voltage_source2d &, ui::draw_context_view &ctx) {
+            ctx.circle(0, 0, 1.2f);
+            ctx.line(0, 1, 0, 0.3f);
+            ctx.line(-0.35f, 0.65f, 0.35f, 0.65f);
+            ctx.line(-0.35f, -0.65f, 0.35f, -0.65f);
+            ctx.line(0, 2, 0, 1.2f);
+            ctx.line(0, -2, 0, -1.2f);
         }
     };
 }

@@ -32,7 +32,7 @@ namespace circuitsim {
             return {{0, 1}};
         }
 
-        static void draw(ui::draw_context_view &ctx) {
+        static void draw(const ui::ground2d &, ui::draw_context_view &ctx) {
             ctx.line(0, 1, 0, 0);
             ctx.line(-0.7f, 0, 0.7f, 0);
             ctx.line(-0.5f, -0.2f, 0.5f, -0.2f);

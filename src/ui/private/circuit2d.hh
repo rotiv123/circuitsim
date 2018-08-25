@@ -15,6 +15,10 @@ namespace circuitsim::ui {
 
     struct circuit2d::concept : public circuit::concept {
         virtual void visit(const std::function<void(const component2d_view &)> &f) const = 0;
+
+        virtual void move_to(std::string_view c, int dx, int dy) = 0;
+
+        virtual void rotate(std::string_view, int r) = 0;
     };
 
     struct circuit2d::impl final : public basic_circuit2d<component2d_factory::impl, circuit2d::concept> {

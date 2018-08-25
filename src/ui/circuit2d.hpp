@@ -23,6 +23,10 @@ namespace circuitsim::ui {
 
         void visit(const std::function<void(const component2d_view &)> &) const;
 
+        void move_to(std::string_view, int dx, int dy);
+
+        void rotate(std::string_view, int r);
+
     protected:
         struct CIRCUITSIM_INTERNAL concept;
 

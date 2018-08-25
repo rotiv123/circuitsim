@@ -16,6 +16,19 @@ namespace circuitsim::ui {
 
         using base = basic_circuit<ComponentFactory, Concept>;
 
+        void move_to(std::string_view c, int dx, int dy) override {
+            auto &source = base::get(c);
+
+            auto[x, y] = get_position(source);
+            set_position(source, {x + dx, y + dy});
+        }
+
+        void rotate(std::string_view c, int r) override {
+            auto &source = base::get(c);
+
+            set_rotation(source, r);
+        }
+
         void connect(std::string_view src, unsigned srcp, std::string_view dst, unsigned dstp) override {
             base::connect(src, srcp, dst, dstp);
 
@@ -41,7 +54,7 @@ namespace circuitsim::ui {
             auto &source = base::get(src);
             auto &destination = base::get("*Ground*1");
             set_position(wire, 0, get_position(source, srcp));
-            set_position(wire, 1, get_position(destination));
+            set_position(wire, 1, get_position(destination, 0));
         }
 
     private:
