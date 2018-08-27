@@ -23,8 +23,8 @@ namespace circuitsim::ui {
     }
 
     template<class Primitive2d>
-    const point2d &get_position(const Primitive2d &c) {
-        return std::visit([](const auto &x) -> const auto & { return position(x); }, c);
+    point2d get_position(const Primitive2d &c) {
+        return std::visit([](const auto &x) -> auto { return position(x); }, c);
     }
 
     template<class Primitive2d>
@@ -50,6 +50,11 @@ namespace circuitsim::ui {
     template<class Primitive2d>
     void set_rotation(Primitive2d &c, int val) {
         std::visit([=](auto &x) { rotation(x, val); }, c);
+    }
+
+    template<class Primitive2d>
+    point2d get_hint(const Primitive2d &c, unsigned ix) {
+        return std::visit([=](const auto &x) { return hint(x, ix); }, c);
     }
 
     template<class Primitive2d>

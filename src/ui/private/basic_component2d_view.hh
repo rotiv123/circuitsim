@@ -20,7 +20,7 @@ namespace circuitsim::ui {
         using base = basic_component_view<Primitive2d, Concept>;
         using base::base;
 
-        const point2d &position() const {
+        point2d position() const {
             return get_position(*base::impl_);
         }
 

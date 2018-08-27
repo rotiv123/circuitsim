@@ -7,10 +7,16 @@
 
 #include <string>
 #include "../../private/component_traits.hh"
+#include "point2d.hh"
 
 namespace circuitsim::ui {
 
     class draw_context_view;
+
+    template<class T, class Traits = component_traits<T>>
+    point2d hint(const T &x, unsigned ix) {
+        return ix < Traits::hints().size() ? Traits::hints()[ix] : point2d{};
+    }
 
     template<class Derived, class Base>
     class drawable : public Base {

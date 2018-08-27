@@ -11,7 +11,7 @@ namespace circuitsim::ui {
             : component_view{inner} {
     }
 
-    const point2d &component2d_view::position() const {
+    point2d component2d_view::position() const {
         return reinterpret_cast<const concept *>(impl_)->position();
     }
 

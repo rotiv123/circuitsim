@@ -5,7 +5,7 @@
 #ifndef CIRCUITSIM_BASIC_VOLTAGE_SOURCE2D_HH
 #define CIRCUITSIM_BASIC_VOLTAGE_SOURCE2D_HH
 
-
+#include <array>
 #include "drawable.hh"
 #include "with_position.hh"
 #include "rotatable.hh"
@@ -25,11 +25,21 @@ namespace circuitsim::ui {
 };
 
 template<class Derived>
-struct voltage_source2d_traits : public voltage_source_traits<Derived> {
+struct voltage_source2d_traits :
+        public voltage_source_traits<Derived> {
 
-    static constexpr std::initializer_list<ui::point2d> ports() {
-        return {{0, 2},
-                {0, -2}};
+    using points_type = std::array<ui::point2d, 2>;
+
+    static const points_type &ports() {
+        static constexpr points_type t{ui::point2d{0, 2},
+                                       ui::point2d{0, -2}};
+        return t;
+    }
+
+    static const points_type &hints() {
+        static constexpr points_type t{ui::point2d{0, 1},
+                                       ui::point2d{0, -1}};
+        return t;
     }
 
     static void draw(const Derived &, ui::draw_context_view &ctx) {

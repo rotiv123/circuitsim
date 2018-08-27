@@ -10,6 +10,7 @@
 #include "basic_circuit2d.hh"
 #include "component2d_factory.hh"
 #include "component2d_view.hh"
+#include "wiring_strategy.hh"
 
 namespace circuitsim::ui {
 
@@ -23,8 +24,9 @@ namespace circuitsim::ui {
         virtual void ground_move_to(int dx, int dy) = 0;
     };
 
-    struct circuit2d::impl final : public basic_circuit2d<component2d_factory::impl, circuit2d::concept> {
-        using base = basic_circuit2d<component2d_factory::impl, circuit2d::concept>;
+    struct circuit2d::impl final :
+            public basic_circuit2d<standard_wiring_strategy, component2d_factory::impl, circuit2d::concept> {
+        using base = basic_circuit2d<standard_wiring_strategy, component2d_factory::impl, circuit2d::concept>;
 
         impl() noexcept : base{} {
             add("*Ground*");

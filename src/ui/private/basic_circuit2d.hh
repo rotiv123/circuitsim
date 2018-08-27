@@ -10,11 +10,12 @@
 
 namespace circuitsim::ui {
 
-    template<class ComponentFactory, class Concept>
+    template<class WiringStrategy, class ComponentFactory, class Concept>
     class basic_circuit2d : public basic_circuit<ComponentFactory, Concept> {
     public:
 
         using base = basic_circuit<ComponentFactory, Concept>;
+        using wiring_strategy_type = WiringStrategy;
 
         void move_to(std::string_view c, int dx, int dy) override {
             auto &source = base::get(c);
@@ -35,33 +36,29 @@ namespace circuitsim::ui {
 
         void connect(std::string_view src, unsigned srcp, std::string_view dst, unsigned dstp) override {
             base::connect(src, srcp, dst, dstp);
-
-            auto w = base::add("*Wire*");
-            base::connect(w, 0, src, srcp);
-            base::connect(w, 1, dst, dstp);
-
-            auto &wire = base::get(w);
-            auto &source = base::get(src);
-            auto &destination = base::get(dst);
-            set_position(wire, 0, get_position(source, srcp));
-            set_position(wire, 1, get_position(destination, dstp));
+            wiring_strategy_.connect(*this, src, srcp, dst, dstp);
         }
 
         void ground(std::string_view src, unsigned srcp) override {
             base::ground(src, srcp);
+            wiring_strategy_.connect(*this, src, srcp, "*Ground*1", 0);
+        }
 
-            auto w = base::add("*Wire*");
-            base::connect(w, 0, src, srcp);
-            base::ground(w, 1);
+        point2d center() const {
+            auto sumx = 0;
+            auto sumy = 0;
+            int cnt = base::components().size();
+            for (const auto &i : base::components()) {
+                auto[x, y] = get_position(i);
+                sumx += x;
+                sumy += y;
+            }
 
-            auto &wire = base::get(w);
-            auto &source = base::get(src);
-            auto &destination = base::get("*Ground*1");
-            set_position(wire, 0, get_position(source, srcp));
-            set_position(wire, 1, get_position(destination, 0));
+            return {sumx / cnt, sumy / cnt};
         }
 
     private:
+        wiring_strategy_type wiring_strategy_;
     };
 }
 

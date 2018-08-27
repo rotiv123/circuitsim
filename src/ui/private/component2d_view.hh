@@ -13,7 +13,7 @@
 namespace circuitsim::ui {
 
     struct component2d_view::concept : public component_view::concept {
-        virtual const point2d &position() const = 0;
+        virtual point2d position() const = 0;
 
         virtual int rotation() const = 0;
 

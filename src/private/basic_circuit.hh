@@ -29,7 +29,7 @@ namespace circuitsim {
                 : components_{}, factory_{std::move(factory)}, max_node_{0} {
         }
 
-        components_type &components() const {
+        const components_type &components() const {
             return components_;
         }
 
@@ -84,15 +84,6 @@ namespace circuitsim {
             return (std::size_t) max_node_;
         }
 
-    protected:
-        void check_add(const component_type &c) const {
-            assert(std::all_of(std::begin(components_),
-                               std::end(components_),
-                               [&](const auto &x) {
-                                   return get_name(x) != get_name(c);
-                               }));
-        }
-
         component_type &get(std::string_view name) {
             auto it = std::find_if(std::begin(components_),
                                    std::end(components_),
@@ -104,7 +95,16 @@ namespace circuitsim {
             return *it;
         }
 
-        //private:
+    protected:
+        void check_add(const component_type &c) const {
+            assert(std::all_of(std::begin(components_),
+                               std::end(components_),
+                               [&](const auto &x) {
+                                   return get_name(x) != get_name(c);
+                               }));
+        }
+
+    private:
         std::unordered_map<std::string_view, int> names_;
         components_type components_;
         component_factory_type factory_;

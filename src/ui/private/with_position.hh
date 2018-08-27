@@ -8,8 +8,8 @@
 
 #include <algorithm>
 #include <string>
-#include "../point2d.hpp"
 #include "../../private/basic_component.hh"
+#include "point2d.hh"
 
 namespace circuitsim::ui {
 
@@ -21,32 +21,11 @@ namespace circuitsim::ui {
 
     template<typename T, class Traits = component_traits <T>>
     point2d position(const T &c, unsigned ix) {
-        auto list = Traits::ports();
-        auto i = 0u;
-        for (auto it : list) {
-            if (i++ == ix) {
-
-                auto[x, y] = it;
-                auto rot = rotation(c);
-                rot = rot > 0 ? rot % 360 : (360 + (rot % 360));
-                switch (rot) {
-                    case 90:
-                        std::swap(x, y);
-                        break;
-                    case 270:
-                        std::swap(x, y);
-                        y *= -1;
-                        break;
-                    case 180:
-                        x *= -1;
-                        break;
-                    default:
-                        break;
-                }
-
-                auto[px, py] = position(c);
-                return {px + x, py + y};
-            }
+        if (ix < Traits::ports().size()) {
+            auto rot = rotation(c);
+            auto[x, y] = rotate(Traits::ports()[ix], rot);
+            auto[px, py] = position(c);
+            return {px + x, py + y};
         }
 
         return position(c);

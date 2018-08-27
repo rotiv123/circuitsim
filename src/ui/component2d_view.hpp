@@ -19,7 +19,7 @@ namespace circuitsim::ui {
 
         CIRCUITSIM_INTERNAL explicit component2d_view(const concept *) noexcept;
 
-        const point2d &position() const;
+        point2d position() const;
 
         int rotation() const;
 
