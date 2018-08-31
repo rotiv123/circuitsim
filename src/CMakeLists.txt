@@ -65,7 +65,12 @@ add_library(CIRCUITSIM SHARED
         ui/private/basic_voltage_source2d.hh
         ui/private/with_position.hh
         ui/private/rotatable.hh
-        ui/private/point2d.hh ui/private/wiring_strategy.hh ui/private/same_axis_wiring_strategy.hh ui/private/away_from_center_wiring_strategy.hpp)
+        ui/private/point2d.hh
+        ui/private/wiring_strategy.hh
+        ui/private/same_axis_wiring_strategy.hh
+        ui/private/away_from_center_wiring_strategy.hpp
+        ui/private/component2d_traits.hh
+        ui/private/AABB.hh)
 
 
 target_include_directories(CIRCUITSIM PUBLIC

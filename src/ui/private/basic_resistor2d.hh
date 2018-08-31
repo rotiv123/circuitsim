@@ -11,6 +11,7 @@
 #include "rotatable.hh"
 #include "../../private/basic_resistor.hh"
 #include "draw_context_view.hh"
+#include "component2d_traits.hh"
 
 namespace circuitsim::ui {
 
@@ -23,7 +24,7 @@ namespace circuitsim::ui {
     };
 
     template<class Derived>
-    struct resistor2d_traits : public resistor_traits<Derived> {
+    struct resistor2d_traits : public component2d_traits<Derived, resistor_traits<Derived>> {
 
         using points_type = std::array<ui::point2d, 2>;
 

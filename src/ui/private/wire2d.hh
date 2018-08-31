@@ -9,6 +9,7 @@
 #include "../../private/basic_component.hh"
 #include "drawable.hh"
 #include "draw_context_view.hh"
+#include "component2d_traits.hh"
 
 namespace circuitsim {
     namespace ui {
@@ -53,7 +54,7 @@ namespace circuitsim {
 }
 
 template<>
-struct component_traits<ui::wire2d> final {
+struct component_traits<ui::wire2d> final : public ui::component2d_traits<ui::wire2d> {
 
     static constexpr std::string_view symbol() {
         return "*Wire*";

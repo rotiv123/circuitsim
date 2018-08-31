@@ -11,6 +11,7 @@
 #include "drawable.hh"
 #include "with_position.hh"
 #include "draw_context_view.hh"
+#include "component2d_traits.hh"
 
 namespace circuitsim {
     namespace ui {
@@ -22,7 +23,7 @@ namespace circuitsim {
     }
 
     template<>
-    struct component_traits<ui::ground2d> final {
+    struct component_traits<ui::ground2d> final : public ui::component2d_traits<ui::ground2d> {
 
         static constexpr std::string_view symbol() {
             return "*Ground*";

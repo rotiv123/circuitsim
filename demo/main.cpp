@@ -82,15 +82,51 @@ void test2() {
     auto r1 = add_resistor(c, 200, {0, 3});
     auto r2 = add_resistor(c, 200, {3, 0}, -90);
 
-    c.ground_move_to(0, -4);
+    c.ground_move_to(0, -5);
 
     c.ground(v1, 1);
     c.connect(v1, 0, r1, 0);
     c.connect(r1, 1, r2, 0);
     c.ground(r2, 1);
 
+    c.move_to(r2, 1, 0);
+
     svg_painter painter;
+    std::cout << R"__(<svg viewBox="-400 -300 800 600" height="600" width="800">)__" << std::endl;
+    std::cout << R"__(<g fill="none" stroke="black" stroke-width="0.0625" transform="scale(40,-40)">)__" << std::endl;
+    std::cout << R"__(<rect x="-10" y="-10" width="20" height="20" fill="white" stroke="none" />)__" << std::endl;
+    std::cout << R"__(<g stroke="silver" stroke-width="0.0375" >)__" << std::endl;
+    std::cout << R"__(<line x1="0" y1="-7" x2="0" y2="7" stroke-width="0.0625" />)__" << std::endl;
+    std::cout << R"__(<line x1="-7" y1="0" x2="7" y2="0" stroke-width="0.0625" />)__" << std::endl;
+    std::cout << R"__(<line x1="-6" y1="1" x2="6" y2="1" />)__" << std::endl;
+    std::cout << R"__(<line x1="-6" y1="2" x2="6" y2="2" />)__" << std::endl;
+    std::cout << R"__(<line x1="-6" y1="3" x2="6" y2="3" />)__" << std::endl;
+    std::cout << R"__(<line x1="-6" y1="4" x2="6" y2="4" />)__" << std::endl;
+    std::cout << R"__(<line x1="-6" y1="5" x2="6" y2="5" />)__" << std::endl;
+    std::cout << R"__(<line x1="-6" y1="6" x2="6" y2="6" />)__" << std::endl;
+    std::cout << R"__(<line x1="-6" y1="-1" x2="6" y2="-1" />)__" << std::endl;
+    std::cout << R"__(<line x1="-6" y1="-2" x2="6" y2="-2" />)__" << std::endl;
+    std::cout << R"__(<line x1="-6" y1="-3" x2="6" y2="-3" />)__" << std::endl;
+    std::cout << R"__(<line x1="-6" y1="-4" x2="6" y2="-4" />)__" << std::endl;
+    std::cout << R"__(<line x1="-6" y1="-5" x2="6" y2="-5" />)__" << std::endl;
+    std::cout << R"__(<line x1="-6" y1="-6" x2="6" y2="-6" />)__" << std::endl;
+    std::cout << R"__(<line x1="1" y1="-6" x2="1" y2="6" />)__" << std::endl;
+    std::cout << R"__(<line x1="2" y1="-6" x2="2" y2="6" />)__" << std::endl;
+    std::cout << R"__(<line x1="3" y1="-6" x2="3" y2="6" />)__" << std::endl;
+    std::cout << R"__(<line x1="4" y1="-6" x2="4" y2="6" />)__" << std::endl;
+    std::cout << R"__(<line x1="5" y1="-6" x2="5" y2="6" />)__" << std::endl;
+    std::cout << R"__(<line x1="6" y1="-6" x2="6" y2="6" />)__" << std::endl;
+    std::cout << R"__(<line x1="-1" y1="-6" x2="-1" y2="6" />)__" << std::endl;
+    std::cout << R"__(<line x1="-2" y1="-6" x2="-2" y2="6" />)__" << std::endl;
+    std::cout << R"__(<line x1="-3" y1="-6" x2="-3" y2="6" />)__" << std::endl;
+    std::cout << R"__(<line x1="-4" y1="-6" x2="-4" y2="6" />)__" << std::endl;
+    std::cout << R"__(<line x1="-5" y1="-6" x2="-5" y2="6" />)__" << std::endl;
+    std::cout << R"__(<line x1="-6" y1="-6" x2="-6" y2="6" />)__" << std::endl;
+    std::cout << "</g>" << std::endl;
+
     std::cout << painter.draw(c) << std::endl;
+    std::cout << "</g>" << std::endl;
+    std::cout << "</svg>" << std::endl;
 }
 
 void test3() {

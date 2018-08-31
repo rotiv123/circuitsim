@@ -10,16 +10,14 @@
 #include "ui/svg_painter.hpp"
 #include "../circuit2d.hpp"
 #include "draw_context_view.hh"
+#include "point2d.hh"
 
 namespace circuitsim::ui {
 
     struct svg_context_view_model final : public draw_context_view::concept {
 
         svg_context_view_model(unsigned w, unsigned h) : result_{}, w_{w}, h_{h} {
-            result_ << "<svg viewBox=\"-" << w / 2 << " -" << h / 2 << " " << w << " " << h << "\""
-                    << " height=\"" << h << "\" width=\"" << w << "\""
-                    << R"#( stroke="black" fill="none" stroke-width="0.0625" transform="scale(40,-40)" >)#"
-                    << std::endl;
+            result_ << "<g height=\"" << h << "\" width=\"" << w << "\" >" << std::endl;
         }
 
         void start_g(point2d p, int r) {
@@ -56,7 +54,7 @@ namespace circuitsim::ui {
         }
 
         std::string to_svg() {
-            result_ << "</svg>" << std::endl;
+            result_ << "</g>" << std::endl;
             return result_.str();
         }
 
