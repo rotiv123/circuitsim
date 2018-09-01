@@ -9,16 +9,6 @@
 
 namespace circuitsim::ui {
 
-    struct draw_context_view::concept {
-        virtual ~concept() = default;
-
-        virtual void line(float x1, float y1, float x2, float y2) = 0;
-
-        virtual void rect(float x, float y, float w, float h) = 0;
-
-        virtual void circle(float cx, float cy, float r) = 0;
-    };
-
 }
 
 #endif //CIRCUITSIM_DRAW_CONTEXT_VIEW_HH

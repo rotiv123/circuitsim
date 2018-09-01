@@ -10,10 +10,64 @@
 #include <primitives.hpp>
 #include <ui/primitives2d.hpp>
 #include <dc_solver.hpp>
-#include <ui/svg_painter.hpp>
+#include <ui/circuit2d_painter.hpp>
+#include <ui/draw_context_view.hpp>
+#include <ui/point2d.hpp>
 
 #include <private/primitives.hh>
 #include <ui/private/primitives2d.hh>
+
+#include <gtkmm/application.h>
+
+#include "main_window.hpp"
+
+struct svg_context_view_model final : public circuitsim::ui::draw_context_view::concept {
+
+    svg_context_view_model(unsigned w, unsigned h) : result_{}, w_{w}, h_{h} {
+        result_ << "<g height=\"" << h << "\" width=\"" << w << "\" >" << std::endl;
+    }
+
+    void begin(float x, float y, float r) final {
+        result_ << " <g transform=\"translate(" << x << "," << y << ") rotate(" << r << ")\">"
+                << std::endl;
+    }
+
+    void line(float x1, float y1, float x2, float y2) final {
+        result_ << "  <line x1=\"" << x1 << "\""
+                << " y1=\"" << y1 << "\""
+                << " x2=\"" << x2 << "\""
+                << " y2=\"" << y2 << "\" />"
+                << std::endl;
+    }
+
+    void rect(float x, float y, float w, float h) final {
+        result_ << "  <rect x=\"" << x << "\""
+                << " y=\"" << y << "\""
+                << " width=\"" << w << "\""
+                << " height=\"" << h << "\" />"
+                << std::endl;
+    }
+
+    void circle(float cx, float cy, float r) final {
+        result_ << "  <circle cx=\"" << cx << "\""
+                << " cy=\"" << cy << "\""
+                << " r=\"" << r << "\" />"
+                << std::endl;
+    }
+
+    void end() final {
+        result_ << " </g>" << std::endl;
+    }
+
+    std::string to_svg() {
+        result_ << "</g>" << std::endl;
+        return result_.str();
+    }
+
+private:
+    std::ostringstream result_;
+    unsigned w_, h_;
+};
 
 void test1() {
     std::cout << "circuitsim version: " << circuitsim_version() << std::endl;
@@ -91,7 +145,7 @@ void test2() {
 
     c.move_to(r2, 1, 0);
 
-    svg_painter painter;
+    circuit2d_painter painter;
     std::cout << R"__(<svg viewBox="-400 -300 800 600" height="600" width="800">)__" << std::endl;
     std::cout << R"__(<g fill="none" stroke="black" stroke-width="0.0625" transform="scale(40,-40)">)__" << std::endl;
     std::cout << R"__(<rect x="-10" y="-10" width="20" height="20" fill="white" stroke="none" />)__" << std::endl;
@@ -124,7 +178,10 @@ void test2() {
     std::cout << R"__(<line x1="-6" y1="-6" x2="-6" y2="6" />)__" << std::endl;
     std::cout << "</g>" << std::endl;
 
-    std::cout << painter.draw(c) << std::endl;
+    svg_context_view_model ctx{800, 600};
+    draw_context_view ctx_view{&ctx};
+    painter.draw(c, ctx_view);
+    std::cout << ctx.to_svg() << std::endl;
     std::cout << "</g>" << std::endl;
     std::cout << "</svg>" << std::endl;
 }
@@ -144,8 +201,16 @@ void test3() {
     std::cout << "sizeof(voltage_source2d) " << sizeof(voltage_source2d) << " bytes" << std::endl;
 }
 
-int main() {
+int teste4(int argc, char *argv[]) {
+    auto app = Gtk::Application::create(argc, argv, "org.gtkmm.examples.base");
 
-    test2();
-    return 0;
+    main_window window;
+    window.set_default_size(800, 600);
+
+    return app->run(window);
+}
+
+int main(int argc, char *argv[]) {
+
+    return teste4(argc, argv);
 }

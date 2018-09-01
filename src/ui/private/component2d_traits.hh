@@ -15,7 +15,7 @@ namespace circuitsim::ui {
 
     struct bb_context_view_model final : public draw_context_view::concept {
 
-        void start_g() {
+        void begin(float, float, float) final {
             min_ = {};
             max_ = {};
         }
@@ -35,6 +35,9 @@ namespace circuitsim::ui {
             update_min_max(cx + r, cy + r);
             update_min_max(cx - r, cy - r);
             update_min_max(cx + r, cy - r);
+        }
+
+        void end() final {
         }
 
         AABB end_g(point2d p, int r) {
@@ -61,7 +64,7 @@ namespace circuitsim::ui {
     AABB bbox(const Component2D &src) {
         bb_context_view_model ctx{};
         draw_context_view ctx_view{&ctx};
-        ctx.start_g();
+        ctx.begin(0, 0, 0);
         Component2D::draw(ctx_view);
         return ctx.end_g(src.position(), src.rotation());
     }

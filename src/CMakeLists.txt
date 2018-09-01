@@ -49,9 +49,9 @@ add_library(CIRCUITSIM SHARED
         ui/point2d.hpp
         ui/draw_context_view.cpp
         ui/draw_context_view.hpp
-        ui/svg_painter.cpp
-        ui/svg_painter.hpp
-        ui/private/svg_painter.hh
+        ui/circuit2d_painter.cpp
+        ui/circuit2d_painter.hpp
+        ui/private/circuit2d_painter.hh
         ui/private/draw_context_view.hh
         private/component_traits.hh
         ui/private/ground2d.hh
