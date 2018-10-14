@@ -16,8 +16,25 @@ static constexpr double to_rad(double deg) {
 
 struct draw_context final : public circuitsim::ui::draw_context_view::concept {
 
-    explicit draw_context(const ::Cairo::RefPtr<::Cairo::Context> &cr, float cx, float cy, float zoom)
-            : cr_{cr}, cx_{cx}, cy_{cy}, zoom_{zoom} {
+    explicit draw_context()
+            : cr_{}, cx_{}, cy_{}, zoom_{30}, pan_{}, tilt_{} {
+    }
+
+    void update(::Cairo::RefPtr<::Cairo::Context> cr, float cx, float cy) {
+        this->cr_ = std::move(cr);
+        this->cx_ = cx;
+        this->cy_ = cy;
+    }
+
+    void zoom_in() {
+        this->zoom_ += 5;
+    }
+
+    void zoom_out() {
+        this->zoom_ -= 5;
+        if (this->zoom_ < 10) {
+            this->zoom_ = 10;
+        }
     }
 
     void draw_background() {
@@ -43,6 +60,21 @@ struct draw_context final : public circuitsim::ui::draw_context_view::concept {
         }
 
         cr_->stroke();
+    }
+
+    void draw_toolbox() {
+        if (cy_ * 2 < 100 || cx_ * 2 < 100) {
+            return;
+        }
+
+        auto w = cx_ * 2;
+        auto h = 40;
+
+        cr_->set_source_rgba(0.6, 0.6, 0.6, 0.8);
+        cr_->set_identity_matrix();
+
+        cr_->rectangle(0, 0, w, h);
+        cr_->fill();
     }
 
     void begin(float x, float y, float r) final {
@@ -78,13 +110,13 @@ struct draw_context final : public circuitsim::ui::draw_context_view::concept {
     }
 
 private:
-    const ::Cairo::RefPtr<::Cairo::Context> cr_;
-    float cx_, cy_, zoom_;
+    ::Cairo::RefPtr<::Cairo::Context> cr_;
+    float cx_, cy_, zoom_, pan_, tilt_;
 };
 
-main_window::main_window() : circuit_{}, painter_{}, zoom_{40}, pan_{}, tilt_{} {
+main_window::main_window() : circuit_{}, painter_{}, draw_context_{std::make_unique<draw_context>()} {
     set_app_paintable(true);
-    signal_draw().connect(sigc::mem_fun(this, &main_window::on_my_draw));
+    add_events(Gdk::EventMask::SCROLL_MASK);
 
     using namespace circuitsim;
     using namespace circuitsim::ui;
@@ -103,18 +135,36 @@ main_window::main_window() : circuit_{}, painter_{}, zoom_{40}, pan_{}, tilt_{} 
     circuit_.move_to(r2, 1, 0);
 }
 
-bool main_window::on_my_draw(const ::Cairo::RefPtr<::Cairo::Context> &cr) {
-    Gtk::Allocation allocation = get_allocation();
+bool main_window::on_draw(const ::Cairo::RefPtr<::Cairo::Context> &cr) {
+    auto allocation = get_allocation();
     auto mw = allocation.get_width() / 2.0f;
     auto mh = allocation.get_height() / 2.0f;
     using namespace circuitsim;
     using namespace circuitsim::ui;
-    draw_context ctx{cr, mw, mh, zoom_};
+    draw_context_->update(cr, mw, mh);
 
-    ctx.draw_background();
-    draw_context_view ctx_view{&ctx};
+    draw_context_->draw_background();
+    draw_context_->draw_toolbox();
+    draw_context_view ctx_view{draw_context_.get()};
     painter_.draw(circuit_, ctx_view);
 
+    return true;
+}
+
+bool main_window::on_scroll_event(GdkEventScroll *evt) {
+
+    switch (evt->direction) {
+        case GdkScrollDirection::GDK_SCROLL_DOWN:
+            draw_context_->zoom_out();
+            break;
+        case GdkScrollDirection::GDK_SCROLL_UP:
+            draw_context_->zoom_in();
+            break;
+        default:
+            return false;
+    }
+
+    queue_draw();
     return true;
 }
 

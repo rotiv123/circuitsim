@@ -206,6 +206,7 @@ int teste4(int argc, char *argv[]) {
 
     main_window window;
     window.set_default_size(800, 600);
+    window.show_all();
 
     return app->run(window);
 }

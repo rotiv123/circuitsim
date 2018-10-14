@@ -14,8 +14,7 @@
 namespace circuitsim {
     namespace ui {
 
-        class wire2d final
-                : public drawable<wire2d, basic_component < wire2d, 0>>
+        class wire2d final : public drawable<wire2d, basic_component < wire2d, 0>>
 
     {
         public:

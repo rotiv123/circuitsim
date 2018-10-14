@@ -9,6 +9,8 @@
 #include <ui/circuit2d.hpp>
 #include <ui/circuit2d_painter.hpp>
 
+struct draw_context;
+
 class main_window final : public Gtk::Window {
 public:
     main_window();
@@ -18,9 +20,11 @@ public:
 private:
     circuitsim::ui::circuit2d circuit_;
     circuitsim::ui::circuit2d_painter painter_;
-    float zoom_, pan_, tilt_;
+    std::unique_ptr<draw_context> draw_context_;
+protected:
+    bool on_draw(const ::Cairo::RefPtr<::Cairo::Context> &cr) final;
 
-    bool on_my_draw(const ::Cairo::RefPtr<::Cairo::Context> &cr);
+    bool on_scroll_event(GdkEventScroll *evt) final;
 };
 
 
